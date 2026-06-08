@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" class="toolbar">
+  <a routerLink="/" class="brand">
+    <img class="brand-logo" src="playverse-logo.png" alt="Logo de PlayVerse" />
+    <span class="brand-name">{{ appName }}</span>
+  </a>
+
+  <span class="spacer"></span>
+
+  @if (authService.currentUser(); as user) {
+    <span class="user-greeting">Hola, {{ user.username }}</span>
+    <a mat-button routerLink="/perfil">Perfil</a>
+    @if (canSeeAdmin()) {
+      <a mat-button routerLink="/admin">Admin</a>
+    }
+    <button mat-raised-button color="accent" type="button" (click)="logout()">Salir</button>
+  } @else {
+    <a mat-raised-button color="accent" routerLink="/login">Login</a>
+  }
+</mat-toolbar>

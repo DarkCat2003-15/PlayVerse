@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: playverse-backend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeployTrigger: commit
+    healthCheckPath: /api/app/info
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:10000
+      - key: Jwt__Audience
+        sync: false
+      - key: Jwt__Issuer
+        sync: false
+      - key: Jwt__PrivateKey
+        generateValue: true
+      - key: Cors__AllowedOrigins
+        sync: false
+      - key: ConnectionStrings__database-1
+        sync: false
+      - key: Smtp__Host
+        value: smtp-relay.brevo.com
+      - key: Smtp__Port
+        value: "587"
+      - key: Smtp__From
+        sync: false
+      - key: Smtp__User
+        sync: false
+      - key: Smtp__Password
+        sync: false
+      - key: FirstAppTime__User__UserName
+        value: User Root
+      - key: FirstAppTime__User__Email
+        sync: false
+      - key: FirstAppTime__User__Password
+        sync: false

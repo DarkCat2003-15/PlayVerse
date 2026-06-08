@@ -1,0 +1,6 @@
+@PlayVerseApi_HostAddress = http://localhost:5168
+
+GET {{PlayVerseApi_HostAddress}}/api/app/info
+Accept: application/json
+
+###

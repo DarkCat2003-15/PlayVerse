@@ -1,0 +1,8 @@
+.git
+.vs
+.dotnet
+**/bin
+**/obj
+**/logs
+*.user
+*.zip

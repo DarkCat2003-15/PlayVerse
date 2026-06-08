@@ -1,0 +1,51 @@
+<section class="about-hero">
+  <div>
+    <span class="eyebrow">Equipo</span>
+    <h1>Quienes somos</h1>
+    <p>
+      Somos estudiantes construyendo una tienda de videojuegos con Angular,
+      ASP.NET Core y SQL Server.
+    </p>
+  </div>
+</section>
+
+<section class="page">
+  <div class="story-grid">
+    <div class="story-copy">
+      <span class="eyebrow">Proyecto final</span>
+      <h2>{{ companyName }}</h2>
+      <p>
+        PlayVerse integra una parte publica para visitantes y un panel privado
+        para administrar el catalogo mediante la API REST del backend.
+      </p>
+    </div>
+
+    <div class="stack-list" aria-label="Tecnologias utilizadas">
+      <span>Angular</span>
+      <span>HttpClient</span>
+      <span>JWT</span>
+      <span>ASP.NET Core</span>
+      <span>SQL Server</span>
+    </div>
+  </div>
+
+  <div class="section-heading">
+    <span class="eyebrow">Roles</span>
+    <h2>Integrantes del equipo</h2>
+  </div>
+
+  <div class="team-grid">
+    @for (member of teamMembers; track member.name) {
+      <mat-card class="team-card">
+        <mat-card-header>
+          <span mat-card-avatar class="avatar">{{ member.name.slice(-1) }}</span>
+          <mat-card-title>{{ member.name }}</mat-card-title>
+          <mat-card-subtitle>{{ member.role }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ member.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+</section>

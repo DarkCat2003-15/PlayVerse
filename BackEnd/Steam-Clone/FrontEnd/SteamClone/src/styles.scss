@@ -1,0 +1,82 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  --pv-bg: #001006;
+  --pv-bg-deep: #000904;
+  --pv-surface: #06170c;
+  --pv-surface-2: #0a2412;
+  --pv-card: #0d1b12;
+  --pv-card-soft: #f4fff6;
+  --pv-green: #18c84f;
+  --pv-green-bright: #54f879;
+  --pv-green-soft: #a2ffb2;
+  --pv-text: #effff2;
+  --pv-muted: #bad7c0;
+  --pv-ink: #07140b;
+  --pv-border: rgba(84, 248, 121, 0.28);
+  --pv-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+  --pv-font-display: "Arial Black", "Impact", "Trebuchet MS", "Segoe UI", sans-serif;
+  --pv-font-body: "Segoe UI", "Trebuchet MS", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--pv-font-body);
+  color: var(--pv-text);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(37, 201, 75, 0.18), transparent 34%),
+    radial-gradient(circle at 88% 16%, rgba(84, 248, 121, 0.12), transparent 30%),
+    linear-gradient(180deg, var(--pv-bg-deep) 0%, var(--pv-bg) 46%, #031409 100%);
+  background-attachment: fixed;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+.brand,
+.eyebrow,
+button,
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-stroked-button,
+.mat-mdc-unelevated-button {
+  font-family: var(--pv-font-display);
+}
+
+.mat-mdc-raised-button.mat-accent,
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-unelevated-button.mat-accent,
+.mat-mdc-unelevated-button.mat-primary {
+  --mdc-protected-button-container-color: var(--pv-green);
+  --mdc-protected-button-label-text-color: #001006;
+  --mdc-filled-button-container-color: var(--pv-green);
+  --mdc-filled-button-label-text-color: #001006;
+  box-shadow: 0 0 22px rgba(84, 248, 121, 0.28);
+}
+
+.mat-mdc-button,
+.mat-mdc-stroked-button {
+  --mdc-text-button-label-text-color: var(--pv-green-bright);
+  --mdc-outlined-button-label-text-color: var(--pv-green-bright);
+  --mdc-outlined-button-outline-color: rgba(84, 248, 121, 0.34);
+}

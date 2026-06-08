@@ -1,0 +1,1119 @@
+﻿<section class="admin-page">
+  <aside class="admin-sidebar">
+    <div class="brand-block">
+      @if (authService.currentUser(); as user) {
+        <span class="panel-kicker">{{ isUserOnly() ? 'Mi perfil' : 'Panel privado' }}</span>
+        <h1>{{ isUserOnly() ? 'Hola, ' + user.username : 'PlayVerse Control' }}</h1>
+        <p>
+          {{
+            isUserOnly()
+              ? 'Tus juegos, reviews, amigos y sesiones activas.'
+              : 'Operaciones conectadas al backend segun rol y permisos.'
+          }}
+        </p>
+      }
+    </div>
+
+    <nav class="section-nav" aria-label="Menu privado">
+      @for (section of visibleSections(); track section.key) {
+        <button
+          type="button"
+          class="section-link"
+          [class.active]="activeSection() === section.key"
+          (click)="setSection(section.key)"
+        >
+          <span>{{ section.marker }}</span>
+          <strong>{{ section.label }}</strong>
+          <small>{{ section.description }}</small>
+        </button>
+      }
+    </nav>
+
+    @if (authService.currentUser(); as user) {
+      <div class="user-box">
+        <span>{{ user.username }}</span>
+        <small>{{ user.email }}</small>
+        <mat-chip-set aria-label="Roles activos">
+          @for (role of user.roles; track role) {
+            <mat-chip>{{ role }}</mat-chip>
+          } @empty {
+            <mat-chip>sin rol</mat-chip>
+          }
+        </mat-chip-set>
+      </div>
+    }
+
+    <button mat-stroked-button type="button" (click)="logout()">Cerrar sesion</button>
+  </aside>
+
+  <main class="admin-content">
+    <section class="admin-hero">
+      <div>
+        @if (authService.currentUser(); as user) {
+          <span class="eyebrow">{{ isUserOnly() ? 'Mi biblioteca' : 'Backend conectado' }}</span>
+          <h2>
+            {{
+              isUserOnly()
+                ? 'Hola, ' + user.username + ', este es tu perfil.'
+                : 'Un centro privado para Admin, Developer y User.'
+            }}
+          </h2>
+          <p>
+            {{
+              isUserOnly()
+                ? 'Aqui puedes revisar tus juegos, publicar reviews, agregar amigos e iniciar una sesion simulada.'
+                : 'Catalogo, contenido comercial, comunidad, roles y flujos de cuenta desde una sola vista.'
+            }}
+          </p>
+        }
+      </div>
+
+      <div class="hero-actions">
+        @if (!isUserOnly()) {
+          <button mat-raised-button color="accent" type="button" (click)="loadPanel()">Actualizar catalogo</button>
+        }
+        @if (canUseStore()) {
+          <button mat-stroked-button type="button" (click)="loadPlayerData()">Actualizar usuario</button>
+        }
+      </div>
+    </section>
+
+    @if (errorMessage()) {
+      <p class="state state-error">{{ errorMessage() }}</p>
+    }
+
+    @if (successMessage()) {
+      <p class="state state-success">{{ successMessage() }}</p>
+    }
+
+    @if (!isUserOnly()) {
+      <section class="metrics" aria-label="Indicadores del panel">
+        <article>
+          <span>{{ totalGames() }}</span>
+          <p>Juegos publicados</p>
+        </article>
+        <article>
+          <span>{{ discountedGames() }}</span>
+          <p>Ofertas activas</p>
+        </article>
+        <article>
+          <span>{{ wishlist().length }}</span>
+          <p>Wishlist</p>
+        </article>
+        <article>
+          <span>{{ activeSessions() }}</span>
+          <p>Sesiones activas</p>
+        </article>
+      </section>
+    }
+
+    @switch (activeSection()) {
+      @case ('profile') {
+        <section class="profile-grid">
+          @if (authService.currentUser(); as user) {
+            <article class="panel profile-card">
+              <span class="eyebrow">Mi perfil</span>
+              <h3>{{ user.username }}</h3>
+              <p>{{ user.email }}</p>
+
+              <div class="id-card">
+                <span>ID para agregar amigos</span>
+                <strong>{{ user.userId }}</strong>
+              </div>
+
+              <div class="profile-stats">
+                <div>
+                  <strong>{{ library().length }}</strong>
+                  <span>Juegos</span>
+                </div>
+                <div>
+                  <strong>{{ myReviews().length }}</strong>
+                  <span>Reviews</span>
+                </div>
+                <div>
+                  <strong>{{ friends().length }}</strong>
+                  <span>Amigos</span>
+                </div>
+                <div>
+                  <strong>{{ myActiveSessions().length }}</strong>
+                  <span>Sesiones</span>
+                </div>
+              </div>
+            </article>
+          }
+
+          <article class="panel library-profile">
+            <div class="panel-heading">
+              <div>
+                <span class="eyebrow">Biblioteca</span>
+                <h3>Mis juegos comprados</h3>
+              </div>
+              @if (playerLoading()) {
+                <mat-spinner diameter="32"></mat-spinner>
+              }
+            </div>
+
+            <div class="stack-list">
+              @for (item of library(); track item.libraryId) {
+                <article class="library-row">
+                  <img
+                    [src]="item.game.imageUrl || 'https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/730/header.jpg'"
+                    [alt]="item.game.title"
+                  />
+                  <div>
+                    <strong>{{ item.game.title }}</strong>
+                    <small>Comprado el {{ item.purchaseDate | date }}</small>
+                    <small>{{ item.purchasePrice | currency: 'USD' : 'symbol' : '1.0-2' }}</small>
+                  </div>
+                  <div class="row-actions">
+                    <button mat-stroked-button type="button" (click)="viewLibraryItem(item)">Ver detalle</button>
+                    <button mat-raised-button color="accent" type="button" (click)="downloadAndStart(item)">
+                      Descargar e Iniciar
+                    </button>
+                  </div>
+                </article>
+              } @empty {
+                <p class="empty-inline">Aun no tienes juegos comprados.</p>
+              }
+            </div>
+          </article>
+
+          <article class="panel">
+            <span class="eyebrow">Sesiones activas</span>
+            <h3>Estado de juego</h3>
+            <div class="stack-list">
+              @for (session of myActiveSessions(); track session.sessionId) {
+                <div class="mini-row">
+                  <div>
+                    <strong>{{ session.gameTitle }}</strong>
+                    <small>Inicio: {{ session.startTime | date: 'short' }}</small>
+                  </div>
+                  <span class="status-pill online">activa</span>
+                </div>
+              } @empty {
+                <p class="empty-inline">No tienes una sesion activa ahora.</p>
+              }
+            </div>
+          </article>
+
+          <article class="panel">
+            <span class="eyebrow">Mis reviews</span>
+            <h3>Opiniones publicadas</h3>
+            <div class="stack-list">
+              @for (review of myReviews(); track review.reviewId) {
+                <article class="review-row">
+                  <div>
+                    <strong>{{ gameTitleForId(review.gameId) }}</strong>
+                    <span [class.good]="review.isRecommended">
+                      {{ review.isRecommended ? 'Recomendado' : 'No recomendado' }}
+                    </span>
+                    <p>{{ review.comment || 'Sin comentario' }}</p>
+                  </div>
+                  <button mat-button color="warn" type="button" (click)="deleteReview(review.reviewId)">
+                    Eliminar
+                  </button>
+                </article>
+              } @empty {
+                <p class="empty-inline">Todavia no has publicado reviews.</p>
+              }
+            </div>
+          </article>
+
+          <article class="panel profile-friends">
+            <span class="eyebrow">Amigos</span>
+            <h3>Tu red</h3>
+            <form [formGroup]="friendForm" (ngSubmit)="addFriend()" class="inline-form">
+              <mat-form-field appearance="outline">
+                <mat-label>ID usuario amigo</mat-label>
+                <input matInput formControlName="friendId" />
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">Agregar</button>
+            </form>
+
+            <div class="stack-list">
+              @for (friend of friends(); track friend.friendId) {
+                <div class="mini-row">
+                  <div>
+                    <strong>{{ friend.username }}</strong>
+                    <small>{{ friend.email }}</small>
+                  </div>
+                  <button mat-button color="warn" type="button" (click)="removeFriend(friend.friendId)">Quitar</button>
+                </div>
+              } @empty {
+                <p class="empty-inline">No hay amigos agregados.</p>
+              }
+            </div>
+          </article>
+        </section>
+      }
+
+      @case ('overview') {
+        <section class="overview-grid">
+          <article class="panel spotlight-panel">
+            <span class="eyebrow">Tu alcance</span>
+            <h3>Permisos detectados</h3>
+            <p>El panel muestra acciones disponibles segun los roles cargados en el token del backend.</p>
+            <div class="role-grid">
+              <div [class.enabled]="isAdmin()">
+                <span>Admin</span>
+                <strong>{{ isAdmin() ? 'Activo' : 'No activo' }}</strong>
+              </div>
+              <div [class.enabled]="isDeveloper()">
+                <span>Developer</span>
+                <strong>{{ isDeveloper() ? 'Activo' : 'No activo' }}</strong>
+              </div>
+              <div [class.enabled]="canUseStore()">
+                <span>User</span>
+                <strong>{{ canUseStore() ? 'Activo' : 'No activo' }}</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel coverage-panel">
+            <span class="eyebrow">Postman cubierto</span>
+            <h3>Funciones implementadas</h3>
+            <div class="coverage-list">
+              <span>Auth: registro, login, recovery y cambio de clave</span>
+              <span>Catalog Setup: developers, publishers, generos, juegos, logros, DLC y ofertas</span>
+              <span>Store: wishlist, compras, libreria, reviews, sesiones, logros y amigos</span>
+              <span>Admin: listado de usuarios, roles, permisos y asignacion de roles</span>
+            </div>
+          </article>
+
+          <article class="panel value-panel">
+            <span class="eyebrow">Catalogo</span>
+            <h3>{{ catalogValue() | currency: 'USD' : 'symbol' : '1.0-2' }}</h3>
+            <p>Valor total publicado con precios finales.</p>
+          </article>
+        </section>
+      }
+
+      @case ('catalog') {
+        <section class="management-grid">
+          <mat-card class="form-panel">
+            <mat-card-header>
+              <mat-card-title>{{ editingId() ? 'Editar juego' : 'Crear juego' }}</mat-card-title>
+              <mat-card-subtitle>Ficha comercial y relaciones del catalogo.</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+              <form [formGroup]="gameForm" (ngSubmit)="saveGame()">
+                <mat-form-field appearance="outline">
+                  <mat-label>Titulo</mat-label>
+                  <input matInput formControlName="title" />
+                  @if (gameForm.controls.title.touched && gameForm.controls.title.hasError('required')) {
+                    <mat-error>El titulo es obligatorio</mat-error>
+                  }
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Descripcion</mat-label>
+                  <textarea matInput rows="4" formControlName="description"></textarea>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Imagen del juego (URL)</mat-label>
+                  <input
+                    matInput
+                    type="url"
+                    formControlName="imageUrl"
+                    placeholder="https://..."
+                  />
+                  <mat-hint>Usa una imagen horizontal tipo portada/header.</mat-hint>
+                </mat-form-field>
+
+                @if (gameForm.controls.imageUrl.value) {
+                  <div class="image-preview">
+                    <img [src]="gameForm.controls.imageUrl.value" alt="Vista previa del juego" />
+                  </div>
+                }
+
+                <div class="form-row">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Fecha de lanzamiento</mat-label>
+                    <input matInput type="date" formControlName="releaseDate" />
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Precio</mat-label>
+                    <input matInput type="number" min="0" step="0.01" formControlName="price" />
+                    @if (gameForm.controls.price.touched && gameForm.controls.price.hasError('required')) {
+                      <mat-error>El precio es obligatorio</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Desarrollador</mat-label>
+                  <mat-select formControlName="developerId">
+                    <mat-option value="">Sin desarrollador</mat-option>
+                    @for (developer of developers(); track developer.developerId) {
+                      <mat-option [value]="developer.developerId">{{ developer.developerName }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Publisher</mat-label>
+                  <mat-select formControlName="publisherId">
+                    <mat-option value="">Sin publisher</mat-option>
+                    @for (publisher of publishers(); track publisher.publisherId) {
+                      <mat-option [value]="publisher.publisherId">{{ publisher.publisherName }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Generos</mat-label>
+                  <mat-select formControlName="genreIds" multiple>
+                    @for (genre of genres(); track genre.genreId) {
+                      <mat-option [value]="genre.genreId">{{ genre.name }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+
+                <div class="form-actions">
+                  @if (editingId()) {
+                    <button mat-button type="button" (click)="cancelEdit()">Cancelar</button>
+                  }
+                  <button mat-raised-button color="primary" type="submit" [disabled]="saving()">
+                    {{ saving() ? 'Guardando...' : editingId() ? 'Guardar cambios' : 'Crear juego' }}
+                  </button>
+                </div>
+              </form>
+            </mat-card-content>
+          </mat-card>
+
+          <article class="panel catalog-masters">
+            <div class="panel-heading">
+              <div>
+                <span class="eyebrow">Catalog Setup</span>
+                <h3>Maestros del catalogo</h3>
+              </div>
+              <div class="segmented" aria-label="Tipo de maestro">
+                <button
+                  type="button"
+                  [class.active]="catalogEntityTab() === 'developer'"
+                  (click)="setCatalogEntityTab('developer')"
+                >
+                  Devs
+                </button>
+                <button
+                  type="button"
+                  [class.active]="catalogEntityTab() === 'publisher'"
+                  (click)="setCatalogEntityTab('publisher')"
+                >
+                  Publishers
+                </button>
+                <button
+                  type="button"
+                  [class.active]="catalogEntityTab() === 'genre'"
+                  (click)="setCatalogEntityTab('genre')"
+                >
+                  Generos
+                </button>
+              </div>
+            </div>
+
+            @if (catalogEntityTab() === 'developer') {
+              <form [formGroup]="developerForm" (ngSubmit)="saveDeveloper()" class="compact-form">
+                <mat-form-field appearance="outline">
+                  <mat-label>Nombre developer</mat-label>
+                  <input matInput formControlName="developerName" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input matInput type="email" formControlName="email" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Password inicial</mat-label>
+                  <input matInput type="password" formControlName="password" />
+                </mat-form-field>
+                <div class="form-actions">
+                  <button mat-button type="button" (click)="resetDeveloperForm()">Limpiar</button>
+                  <button mat-raised-button color="primary" type="submit">
+                    {{ developerForm.controls.developerId.value ? 'Actualizar' : 'Crear developer' }}
+                  </button>
+                </div>
+              </form>
+
+              <div class="stack-list">
+                @for (developer of developers(); track developer.developerId) {
+                  <article class="mini-row">
+                    <div>
+                      <strong>{{ developer.developerName }}</strong>
+                      <small>{{ developer.email || 'sin email' }}</small>
+                    </div>
+                    <div class="row-actions">
+                      <button mat-stroked-button type="button" (click)="editDeveloper(developer)">Editar</button>
+                      <button mat-button color="warn" type="button" (click)="deleteDeveloper(developer)">
+                        Eliminar
+                      </button>
+                    </div>
+                  </article>
+                } @empty {
+                  <p class="empty-inline">No hay developers registrados.</p>
+                }
+              </div>
+            }
+
+            @if (catalogEntityTab() === 'publisher') {
+              <form [formGroup]="publisherForm" (ngSubmit)="savePublisher()" class="compact-form">
+                <mat-form-field appearance="outline">
+                  <mat-label>Nombre publisher</mat-label>
+                  <input matInput formControlName="publisherName" />
+                </mat-form-field>
+                <div class="form-actions">
+                  <button mat-button type="button" (click)="resetPublisherForm()">Limpiar</button>
+                  <button mat-raised-button color="primary" type="submit">
+                    {{ publisherForm.controls.publisherId.value ? 'Actualizar' : 'Crear publisher' }}
+                  </button>
+                </div>
+              </form>
+
+              <div class="stack-list">
+                @for (publisher of publishers(); track publisher.publisherId) {
+                  <article class="mini-row">
+                    <strong>{{ publisher.publisherName }}</strong>
+                    <div class="row-actions">
+                      <button mat-stroked-button type="button" (click)="editPublisher(publisher)">Editar</button>
+                      <button mat-button color="warn" type="button" (click)="deletePublisher(publisher)">
+                        Eliminar
+                      </button>
+                    </div>
+                  </article>
+                } @empty {
+                  <p class="empty-inline">No hay publishers registrados.</p>
+                }
+              </div>
+            }
+
+            @if (catalogEntityTab() === 'genre') {
+              <form [formGroup]="genreForm" (ngSubmit)="saveGenre()" class="compact-form">
+                <mat-form-field appearance="outline">
+                  <mat-label>Genero</mat-label>
+                  <input matInput formControlName="name" />
+                </mat-form-field>
+                <div class="form-actions">
+                  <button mat-button type="button" (click)="resetGenreForm()">Limpiar</button>
+                  <button mat-raised-button color="primary" type="submit">
+                    {{ genreForm.controls.genreId.value ? 'Actualizar' : 'Crear genero' }}
+                  </button>
+                </div>
+              </form>
+
+              <div class="tag-list">
+                @for (genre of genres(); track genre.genreId) {
+                  <button type="button" class="tag-chip" (click)="editGenre(genre)">
+                    {{ genre.name }}
+                  </button>
+                  <button mat-button color="warn" type="button" (click)="deleteGenre(genre)">Eliminar</button>
+                } @empty {
+                  <p class="empty-inline">No hay generos registrados.</p>
+                }
+              </div>
+            }
+          </article>
+        </section>
+
+        <section class="panel list-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">Juegos</span>
+              <h3>Catalogo publicado</h3>
+            </div>
+            @if (loading()) {
+              <mat-spinner diameter="32"></mat-spinner>
+            }
+          </div>
+
+          <div class="games-list">
+            @for (game of games(); track game.gameId) {
+              <article class="game-row">
+                <div>
+                  <h3>{{ game.title }}</h3>
+                  <p>{{ game.developerName || 'Sin desarrollador' }} | {{ game.releaseDate | date }}</p>
+                  <mat-chip-set aria-label="Generos del juego">
+                    @for (genre of game.genres; track genre) {
+                      <mat-chip>{{ genre }}</mat-chip>
+                    } @empty {
+                      <mat-chip>Sin genero</mat-chip>
+                    }
+                  </mat-chip-set>
+                </div>
+
+                <div class="row-price">
+                  @if (game.hasActiveOffer) {
+                    <span class="discount">-{{ game.discountPercentage }}%</span>
+                  }
+                  <strong>{{ game.finalPrice | currency: 'USD' : 'symbol' : '1.0-2' }}</strong>
+                </div>
+
+                <div class="row-actions">
+                  <button mat-stroked-button type="button" (click)="editGame(game)">Editar</button>
+                  <button mat-flat-button color="warn" type="button" (click)="askDelete(game)">Eliminar</button>
+                </div>
+              </article>
+            } @empty {
+              <div class="empty-box">
+                <h3>No hay juegos registrados</h3>
+                <p>Crea el primer juego desde el formulario administrativo.</p>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      @case ('content') {
+        <section class="panel content-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">Developer tools</span>
+              <h3>Contenido del juego</h3>
+            </div>
+            <form [formGroup]="contentGameForm" class="inline-select">
+              <mat-form-field appearance="outline">
+                <mat-label>Juego de trabajo</mat-label>
+                <mat-select formControlName="gameId" (selectionChange)="selectContentGame($event.value)">
+                  @for (game of games(); track game.gameId) {
+                    <mat-option [value]="game.gameId">{{ game.title }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <div class="content-grid">
+            <form [formGroup]="achievementForm" (ngSubmit)="addAchievement()" class="tool-card">
+              <span>Logros</span>
+              <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Descripcion</mat-label>
+                <textarea matInput rows="3" formControlName="description"></textarea>
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">Agregar logro</button>
+            </form>
+
+            <form [formGroup]="dlcForm" (ngSubmit)="addDlc()" class="tool-card">
+              <span>DLC</span>
+              <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Precio</mat-label>
+                <input matInput type="number" min="0" step="0.01" formControlName="price" />
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">Agregar DLC</button>
+            </form>
+
+            <form [formGroup]="offerForm" (ngSubmit)="addOffer()" class="tool-card">
+              <span>Oferta</span>
+              <mat-form-field appearance="outline">
+                <mat-label>Descuento %</mat-label>
+                <input matInput type="number" min="1" max="100" formControlName="discount" />
+              </mat-form-field>
+              <div class="form-row">
+                <mat-form-field appearance="outline">
+                  <mat-label>Inicio</mat-label>
+                  <input matInput type="date" formControlName="startDate" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Fin</mat-label>
+                  <input matInput type="date" formControlName="endDate" />
+                </mat-form-field>
+              </div>
+              <button mat-raised-button color="primary" type="submit">Publicar oferta</button>
+            </form>
+          </div>
+
+          @if (selectedGame(); as selected) {
+            <section class="detail-strip">
+              <article>
+                <span>Logros</span>
+                <strong>{{ selected.achievements.length }}</strong>
+                @for (achievement of selected.achievements; track achievement.achievementId) {
+                  <small>{{ achievement.achievementId }} | {{ achievement.name }}</small>
+                } @empty {
+                  <small>Sin logros</small>
+                }
+              </article>
+              <article>
+                <span>DLC</span>
+                <strong>{{ selected.dlcs.length }}</strong>
+                @for (dlc of selected.dlcs; track dlc.dlcId) {
+                  <small>{{ dlc.name }} | {{ dlc.price | currency: 'USD' : 'symbol' : '1.0-2' }}</small>
+                } @empty {
+                  <small>Sin DLC</small>
+                }
+              </article>
+              <article>
+                <span>Ofertas</span>
+                <strong>{{ selected.offers.length }}</strong>
+                @for (offer of selected.offers; track offer.offerId) {
+                  <small>{{ offer.discount }}% | {{ offer.startDate | date }} - {{ offer.endDate | date }}</small>
+                } @empty {
+                  <small>Sin ofertas</small>
+                }
+              </article>
+            </section>
+          }
+        </section>
+      }
+
+      @case ('store') {
+        <section class="panel store-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">User store</span>
+              <h3>Wishlist, compras y libreria</h3>
+            </div>
+            @if (playerLoading()) {
+              <mat-spinner diameter="32"></mat-spinner>
+            }
+          </div>
+
+          <form [formGroup]="storeGameForm" class="store-actions">
+            <mat-form-field appearance="outline">
+              <mat-label>Selecciona juego</mat-label>
+              <mat-select formControlName="gameId">
+                @for (game of games(); track game.gameId) {
+                  <mat-option [value]="game.gameId">
+                    {{ game.title }}{{ isGameOwned(game.gameId) ? ' (adquirido)' : '' }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="button" (click)="addWishlist()">Wishlist</button>
+            <button
+              mat-raised-button
+              color="accent"
+              type="button"
+              (click)="purchaseGame()"
+              [disabled]="!!storeGameForm.controls.gameId.value && isGameOwned(storeGameForm.controls.gameId.value)"
+            >
+              {{
+                storeGameForm.controls.gameId.value && isGameOwned(storeGameForm.controls.gameId.value)
+                  ? 'Ya adquirido'
+                  : 'Comprar'
+              }}
+            </button>
+          </form>
+
+          <div class="two-column">
+            <article class="stack-panel">
+              <h4>Wishlist</h4>
+              @for (item of wishlist(); track item.wishlistId) {
+                <div class="mini-row">
+                  <div>
+                    <strong>{{ item.game.title }}</strong>
+                    <small>{{ item.addedAt | date }}</small>
+                  </div>
+                  <button mat-button color="warn" type="button" (click)="removeWishlist(item.game.gameId)">
+                    Quitar
+                  </button>
+                </div>
+              } @empty {
+                <p class="empty-inline">Tu wishlist esta vacia.</p>
+              }
+            </article>
+
+            <article class="stack-panel">
+              <h4>Libreria</h4>
+              @for (item of library(); track item.libraryId) {
+                <div class="mini-row">
+                  <div>
+                    <strong>{{ item.game.title }}</strong>
+                    <small>{{ item.purchasePrice | currency: 'USD' : 'symbol' : '1.0-2' }}</small>
+                  </div>
+                  <div class="row-actions">
+                    <button mat-stroked-button type="button" (click)="viewLibraryItem(item)">Ver detalle</button>
+                    <button mat-raised-button color="accent" type="button" (click)="downloadAndStart(item)">
+                      Descargar e Iniciar
+                    </button>
+                  </div>
+                </div>
+              } @empty {
+                <p class="empty-inline">Todavia no hay compras.</p>
+              }
+            </article>
+          </div>
+        </section>
+      }
+
+      @case ('community') {
+        <section class="community-grid">
+          <article class="panel">
+            <div class="panel-heading">
+              <div>
+                <span class="eyebrow">Reviews</span>
+                <h3>Opiniones y respuestas</h3>
+              </div>
+              <button mat-stroked-button type="button" (click)="loadReviewsForSelectedGame()">Filtrar</button>
+            </div>
+
+            <form [formGroup]="reviewForm" (ngSubmit)="createReview()" class="compact-form">
+              <mat-form-field appearance="outline">
+                <mat-label>{{ isUserOnly() ? 'Juego adquirido' : 'Juego' }}</mat-label>
+                <mat-select [formControl]="storeGameForm.controls.gameId">
+                  @for (game of reviewableGames(); track game.gameId) {
+                    <mat-option [value]="game.gameId">{{ game.title }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Recomendacion</mat-label>
+                <mat-select formControlName="isRecommended">
+                  <mat-option [value]="true">Recomendado</mat-option>
+                  <mat-option [value]="false">No recomendado</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Comentario</mat-label>
+                <textarea matInput rows="3" formControlName="comment"></textarea>
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">Publicar review</button>
+            </form>
+
+            <form [formGroup]="reviewAnswerForm" (ngSubmit)="answerReview()" class="inline-form">
+              <mat-form-field appearance="outline">
+                <mat-label>ID review</mat-label>
+                <input matInput type="number" min="1" formControlName="reviewId" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Respuesta</mat-label>
+                <input matInput formControlName="comment" />
+              </mat-form-field>
+              <button mat-stroked-button type="submit">Responder</button>
+            </form>
+
+            <div class="stack-list">
+              @for (review of reviews(); track review.reviewId) {
+                <article class="review-row">
+                  <div>
+                    <strong>#{{ review.reviewId }} | {{ review.username }}</strong>
+                    <span [class.good]="review.isRecommended">
+                      {{ review.isRecommended ? 'Recomendado' : 'No recomendado' }}
+                    </span>
+                    <p>{{ review.comment || 'Sin comentario' }}</p>
+                    @for (answer of review.answers; track answer.reviewAnswerId) {
+                      <small>Respuesta: {{ answer.comment }}</small>
+                    }
+                  </div>
+                  <button mat-button color="warn" type="button" (click)="deleteReview(review.reviewId)">
+                    Eliminar
+                  </button>
+                </article>
+              } @empty {
+                <p class="empty-inline">No hay reviews para mostrar.</p>
+              }
+            </div>
+          </article>
+
+          <article class="panel">
+            <span class="eyebrow">Sesiones</span>
+            <h3>Juego activo</h3>
+            <div class="quick-actions">
+              <button mat-raised-button color="primary" type="button" (click)="startSession()">Iniciar sesion</button>
+            </div>
+
+            <form [formGroup]="sessionEndForm" (ngSubmit)="endSession()" class="inline-form">
+              <mat-form-field appearance="outline">
+                <mat-label>ID sesion</mat-label>
+                <input matInput type="number" min="1" formControlName="sessionId" />
+              </mat-form-field>
+              <button mat-stroked-button type="submit">Finalizar</button>
+            </form>
+
+            <div class="stack-list">
+              @for (session of sessions(); track session.sessionId) {
+                <div class="mini-row">
+                  <div>
+                    <strong>#{{ session.sessionId }} | {{ session.gameTitle }}</strong>
+                    <small>{{ session.durationMinutes }} min</small>
+                  </div>
+                  <span class="status-pill" [class.online]="!session.endTime">
+                    {{ session.endTime ? 'cerrada' : 'activa' }}
+                  </span>
+                </div>
+              } @empty {
+                <p class="empty-inline">No hay sesiones registradas.</p>
+              }
+            </div>
+          </article>
+
+          <article class="panel">
+            <span class="eyebrow">Logros</span>
+            <h3>Desbloqueos</h3>
+            <form [formGroup]="achievementUnlockForm" (ngSubmit)="unlockAchievement()" class="inline-form">
+              <mat-form-field appearance="outline">
+                <mat-label>ID logro</mat-label>
+                <input matInput type="number" min="1" formControlName="achievementId" />
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">Desbloquear</button>
+            </form>
+
+            <div class="stack-list">
+              @for (achievement of achievements(); track achievement.userAchievementId) {
+                <div class="mini-row">
+                  <div>
+                    <strong>{{ achievement.achievementName }}</strong>
+                    <small>{{ achievement.gameTitle }} | {{ achievement.unlockedAt | date }}</small>
+                  </div>
+                </div>
+              } @empty {
+                <p class="empty-inline">No hay logros desbloqueados.</p>
+              }
+            </div>
+          </article>
+
+          <article class="panel">
+            <span class="eyebrow">Amigos</span>
+            <h3>Red social</h3>
+            <form [formGroup]="friendForm" (ngSubmit)="addFriend()" class="inline-form">
+              <mat-form-field appearance="outline">
+                <mat-label>ID usuario amigo</mat-label>
+                <input matInput formControlName="friendId" />
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">Agregar</button>
+            </form>
+
+            <div class="stack-list">
+              @for (friend of friends(); track friend.friendId) {
+                <div class="mini-row">
+                  <div>
+                    <strong>{{ friend.username }}</strong>
+                    <small>{{ friend.email }}</small>
+                  </div>
+                  <button mat-button color="warn" type="button" (click)="removeFriend(friend.friendId)">Quitar</button>
+                </div>
+              } @empty {
+                <p class="empty-inline">No hay amigos agregados.</p>
+              }
+            </div>
+          </article>
+        </section>
+      }
+
+      @case ('access') {
+        <section class="panel access-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">Admin</span>
+              <h3>Roles, permisos y usuarios</h3>
+            </div>
+            @if (accessLoading()) {
+              <mat-spinner diameter="32"></mat-spinner>
+            }
+          </div>
+
+          <form [formGroup]="userSearchForm" class="inline-form" (ngSubmit)="loadAccess()">
+            <mat-form-field appearance="outline">
+              <mat-label>Buscar usuario</mat-label>
+              <input matInput formControlName="search" />
+            </mat-form-field>
+            <button mat-stroked-button type="submit">Buscar</button>
+          </form>
+
+          <form [formGroup]="roleAssignForm" (ngSubmit)="assignRole()" class="role-form">
+            <mat-form-field appearance="outline">
+              <mat-label>Usuario</mat-label>
+              <mat-select formControlName="userId">
+                @for (user of users(); track user.userId) {
+                  <mat-option [value]="user.userId">{{ user.username }} | {{ user.email }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Rol</mat-label>
+              <mat-select formControlName="roleId">
+                @for (role of roles(); track role.id) {
+                  <mat-option [value]="role.id">{{ role.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit">Asignar rol</button>
+          </form>
+
+          <div class="access-grid">
+            <article class="stack-panel">
+              <h4>Usuarios</h4>
+              @for (user of users(); track user.userId) {
+                <div class="user-row">
+                  <div>
+                    <strong>{{ user.username }}</strong>
+                    <small>{{ user.email }}</small>
+                    <small>{{ user.userId }}</small>
+                  </div>
+                  <div class="role-actions">
+                    @for (role of user.roles; track role) {
+                      <button type="button" class="role-pill" (click)="removeRole(user.userId, role)">
+                        {{ role }} x
+                      </button>
+                    } @empty {
+                      <span class="muted">sin rol</span>
+                    }
+                  </div>
+                </div>
+              } @empty {
+                <p class="empty-inline">No hay usuarios para mostrar.</p>
+              }
+            </article>
+
+            <article class="stack-panel">
+              <h4>Permisos</h4>
+              <div class="permission-cloud">
+                @for (permission of permissions(); track permission.id) {
+                  <span>{{ permission.code }}</span>
+                } @empty {
+                  <p class="empty-inline">No hay permisos cargados.</p>
+                }
+              </div>
+            </article>
+          </div>
+        </section>
+      }
+
+      @case ('account') {
+        <section class="account-grid">
+          <article class="panel">
+            <span class="eyebrow">Mi cuenta</span>
+            <h3>Actualizar datos</h3>
+            <form [formGroup]="accountForm" (ngSubmit)="updateAccount()" class="compact-form">
+              <mat-form-field appearance="outline">
+                <mat-label>UserName</mat-label>
+                <input matInput formControlName="username" autocomplete="username" />
+                @if (accountForm.controls.username.touched && accountForm.controls.username.hasError('required')) {
+                  <mat-error>El UserName es obligatorio</mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" autocomplete="email" />
+                @if (accountForm.controls.email.touched && accountForm.controls.email.hasError('email')) {
+                  <mat-error>Ingresa un email valido</mat-error>
+                }
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">Guardar datos</button>
+            </form>
+
+            <div class="account-actions">
+              <button mat-stroked-button type="button" (click)="renewSession()">Renew token</button>
+              <button mat-flat-button color="warn" type="button" (click)="deleteAccount()">
+                Eliminar cuenta
+              </button>
+            </div>
+          </article>
+
+          <article class="panel">
+            <span class="eyebrow">Seguridad</span>
+            <h3>Cambiar contraseÃ±a</h3>
+            <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()" class="compact-form">
+              <mat-form-field appearance="outline">
+                <mat-label>ContraseÃ±a actual</mat-label>
+                <input matInput type="password" formControlName="currentPassword" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Nueva contraseÃ±a</mat-label>
+                <input matInput type="password" formControlName="newPassword" />
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">Cambiar</button>
+            </form>
+          </article>
+
+          @if (isAdmin()) {
+            <article class="panel">
+              <span class="eyebrow">Registro</span>
+              <h3>Crear usuario</h3>
+              <form [formGroup]="registerCompleteForm" (ngSubmit)="registerComplete()" class="compact-form">
+                <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input matInput type="email" formControlName="email" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Username</mat-label>
+                  <input matInput formControlName="username" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input matInput type="password" formControlName="password" />
+                </mat-form-field>
+                <button mat-raised-button color="primary" type="submit">Crear usuario</button>
+              </form>
+            </article>
+          }
+
+        </section>
+      }
+    }
+  </main>
+</section>
+
+@if (selectedLibraryItem(); as item) {
+  <div class="modal-backdrop" (click)="closeLibraryDetail()">
+    <section class="library-detail-modal" (click)="$event.stopPropagation()">
+      <button mat-button type="button" class="modal-close" (click)="closeLibraryDetail()">Cerrar</button>
+
+      @if (selectedLibraryGame()?.imageUrl || item.game.imageUrl) {
+        <img
+          class="library-cover"
+          [src]="selectedLibraryGame()?.imageUrl || item.game.imageUrl"
+          [alt]="item.game.title"
+        />
+      }
+
+      <div class="library-detail-body">
+        <span class="eyebrow">Juego en biblioteca</span>
+        <h2>{{ selectedLibraryGame()?.title || item.game.title }}</h2>
+        <p>{{ selectedLibraryGame()?.description || item.game.description }}</p>
+
+        <div class="detail-stats">
+          <article>
+            <span>Creador</span>
+            <strong>{{ selectedLibraryGame()?.developerName || item.game.developerName || 'Sin desarrollador' }}</strong>
+          </article>
+          <article>
+            <span>Publisher</span>
+            <strong>{{ selectedLibraryGame()?.publisherName || item.game.publisherName || 'Sin publisher' }}</strong>
+          </article>
+          <article>
+            <span>Compra</span>
+            <strong>{{ item.purchaseDate | date }}</strong>
+          </article>
+          <article>
+            <span>Precio pagado</span>
+            <strong>{{ item.purchasePrice | currency: 'USD' : 'symbol' : '1.0-2' }}</strong>
+          </article>
+        </div>
+
+        @if (selectedLibraryOffer(); as offer) {
+          <div class="offer-card">
+            <strong>{{ offer.discount }}% de descuento</strong>
+            <span>Oferta desde {{ offer.startDate | date }} hasta {{ offer.endDate | date }}</span>
+          </div>
+        }
+
+        <mat-chip-set aria-label="Generos del juego">
+          @for (genre of selectedLibraryGame()?.genres || item.game.genres; track genre) {
+            <mat-chip>{{ genre }}</mat-chip>
+          } @empty {
+            <mat-chip>Sin genero</mat-chip>
+          }
+        </mat-chip-set>
+
+        <button mat-raised-button color="accent" type="button" (click)="downloadAndStart()">
+          Descargar e Iniciar
+        </button>
+      </div>
+    </section>
+  </div>
+}
+
+@if (deleteCandidate()) {
+  <div class="modal-backdrop">
+    <app-confirm-dialog [data]="deleteDialogData()" (closed)="confirmDelete($event)" />
+  </div>
+}

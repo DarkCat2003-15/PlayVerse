@@ -1,0 +1,26 @@
+Project: PlayVerse
+Description: academic video game store with public catalog, user authentication and private administration panel.
+
+Sources:
+- FrontEnd/SteamClone/package.json: playverse package, Angular 21, Angular Material 21, TypeScript 5.9, RxJS, Vitest.
+- FrontEnd/SteamClone/src/app/Core/constants/app.constants.ts: PlayVerse name, slogan and contact constants.
+- FrontEnd/SteamClone/src/app/Features/public/public.routes.ts: Inicio, Juegos, Quienes somos, Contactanos and Login.
+- FrontEnd/SteamClone/src/app/Features/admin/admin.routes.ts: Admin route protected by authGuard.
+- BackEnd/Steam-Clone/README.md: PlayVerse project, collaborators, SQL Server 2022.
+- BackEnd/Steam-Clone/Steam_Backend/README.md: ASP.NET Core backend, Postman, Brevo SMTP and Render deployment.
+- Steam.Web.Api/Program.cs and ServiceCollectionExtension.cs: CORS, OpenAPI/Scalar, JWT, Serilog, SMTP, SQL Server context.
+- Controllers: Auth, Games, Developers, Publishers, Genres, Wishlist, Library, Reviews, Sessions, Friends, UserAchievements, Roles and User.
+- Base de datos/PLAYVERSE_DDL.sql: PLAYVERSE database and seed information.
+
+Screenshots:
+- playverse-home.png: home page
+- playverse-catalogo.png: public catalog
+- playverse-login.png: login/register page
+- playverse-equipo.png: team/about page
+- playverse-contacto.png: contact page
+- playverse-admin.png: private admin panel
+- playverse-admin-catalogo-form.png: catalog administration form
+
+Identity assets:
+- logo.png from Manuales/LOGO.png, user-provided project logo.
+- relaciones-entidades.png from Manuales/RELACIONES Y ENTIDADES DEL PROYECTO.png.

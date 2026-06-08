@@ -1,0 +1,20 @@
+Existing source decks:
+- PlayVerse_Presentacion_Borrador - copia.pptx
+- PlayVerse_Presentacion_Borrador - Incompleto.pptx
+
+Treatment:
+- Build a fresh final deck because the request is to satisfy the deliverable structure, not to preserve a specific template.
+- Use the current PlayVerse identity and screenshots from June 3, 2026.
+
+Visual language observed:
+- dark green/black interface
+- neon green PlayVerse logo
+- magenta login/CTA buttons
+- game artwork backgrounds
+- private admin panel with green metric cards and left navigation
+
+Anti-patterns avoided:
+- SteamClone naming
+- missing architecture slide
+- missing conclusion slide
+- generic bullet-only presentation

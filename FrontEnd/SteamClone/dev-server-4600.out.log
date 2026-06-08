@@ -1,0 +1,26 @@
+
+> steam-clone@0.0.0 start
+> ng serve --host 127.0.0.1 --port 4600 --hmr=false
+
+[33m>[39m Building...
+[32m√[39m Building...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m       [2m | [22m[36m111.64 kB[39m[2m | [22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m         [2m | [22m [36m13.54 kB[39m[2m | [22m
+[32mchunk-IEXCBLJO.js[39m  [2m | [22m[2m-[22m            [2m | [22m[36m521 bytes[39m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m[2m | [22m[1m125.69 kB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m
+[32mchunk-5C2HDJ76.js[39m  [2m | [22m[2mlogin[22m        [2m | [22m [36m13.03 kB[39m[2m | [22m
+[32mchunk-OZPAZZNT.js[39m  [2m | [22m[2mhome[22m         [2m | [22m  [36m9.32 kB[39m[2m | [22m
+[32mchunk-IQ6VHB2P.js[39m  [2m | [22m[2mcontact[22m      [2m | [22m  [36m9.30 kB[39m[2m | [22m
+[32mchunk-CINBBQFM.js[39m  [2m | [22m[2mproducts[22m     [2m | [22m  [36m7.67 kB[39m[2m | [22m
+[32mchunk-25PSN6XP.js[39m  [2m | [22m[2mabout[22m        [2m | [22m  [36m7.03 kB[39m[2m | [22m
+[32mchunk-Q7B2MAIU.js[39m  [2m | [22m[2m-[22m            [2m | [22m  [36m6.18 kB[39m[2m | [22m
+
+Application bundle generation complete. [6.261 seconds] - 2026-05-26T20:31:15.845Z
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m4600[22m/[39m

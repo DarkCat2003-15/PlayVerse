@@ -1,0 +1,13 @@
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'canAddToWishlist' does not exist on type 'Products'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/Features/public/pages/products/products.html:143:17:
+[37m      143 │             @if ([32mcanAddToWishlist[37m(product)) {
+          ╵                  [32m~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component Products.
+
+    src/app/Features/public/pages/products/products.ts:32:15:
+[37m      32 │   templateUrl: [32m'./products.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m

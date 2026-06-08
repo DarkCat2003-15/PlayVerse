@@ -1,0 +1,20 @@
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  color: var(--pv-muted);
+  background: rgba(3, 20, 9, 0.88);
+  border-bottom: 1px solid var(--pv-border);
+}
+
+.menu a[mat-button] {
+  color: var(--pv-muted);
+}
+
+.active {
+  color: #001006 !important;
+  background: var(--pv-green-bright);
+  box-shadow: 0 0 18px rgba(84, 248, 121, 0.25);
+}

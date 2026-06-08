@@ -1,0 +1,13 @@
+<section class="confirm-dialog" role="dialog" aria-modal="true" [attr.aria-label]="data.title">
+  <h2>{{ data.title }}</h2>
+  <p>{{ data.message }}</p>
+
+  <div class="actions">
+    <button type="button" class="ghost" (click)="close(false)">
+      {{ data.cancelText ?? 'Cancelar' }}
+    </button>
+    <button type="button" class="danger" (click)="close(true)">
+      {{ data.confirmText ?? 'Eliminar' }}
+    </button>
+  </div>
+</section>

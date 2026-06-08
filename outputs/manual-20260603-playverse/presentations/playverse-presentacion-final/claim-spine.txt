@@ -1,0 +1,33 @@
+Thesis:
+PlayVerse presents a complete full-stack academic game store: public discovery, secure access, private catalog administration, community features and a SQL Server-backed domain model.
+
+Audience:
+Teachers and evaluators on exposition day.
+
+One-line arc:
+The presentation moves from the problem of managing a game store to the implemented solution, technologies, architecture, screenshots and team conclusions.
+
+Slides:
+1. PlayVerse is ready to present as a full-stack store experience.
+   Proof object: logo, screenshots and team names.
+2. The problem is managing catalog, users and community without duplicating work.
+   Proof object: problem map.
+3. The solution separates public discovery from private operations.
+   Proof object: capability map.
+4. The technology stack connects Angular, .NET and SQL Server.
+   Proof object: stack matrix.
+5. The architecture links UI, services, API, domain and persistence.
+   Proof object: architecture flow.
+6. The database model supports catalog, access and player activity.
+   Proof object: entity relationship image.
+7. The public screens show the user-facing experience.
+   Proof object: home and catalog screenshots.
+8. The private panel supports administrative operations.
+   Proof object: admin and catalog-form screenshots.
+9. The demo flow can be shown end to end in the exposition.
+   Proof object: timeline.
+10. The team concludes with a functional base and clear next improvements.
+   Proof object: achieved/next board.
+
+Known omission:
+- Admin panel data may show zero/error if the backend API is not running during screenshot capture.

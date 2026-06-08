@@ -1,0 +1,42 @@
+Slide size: 1280x720.
+
+Background:
+- deep green/black base: #020C07
+- surface: #F2F8F4
+- panels: #062112, #0B3019, #102D1D
+
+Typography:
+- Aptos Display for titles
+- Aptos for body and labels
+- Aptos Mono for code/endpoint labels
+
+Palette:
+- ink: #020C07
+- green: #45F26E
+- dark green: #0B3019
+- magenta: #FF3D8D
+- amber: #F6C85F
+- paper: #F2F8F4
+- white: #FFFFFF
+- muted: #A6BBAE
+
+Diagram grammar:
+- flat nodes with thin connectors
+- no decorative fake brand marks
+- screenshots framed with one-pixel rules
+- endpoint and technology names use compact chips
+
+Footer:
+- quiet source note bottom-left
+- page number bottom-right
+
+Layout families:
+- hero cover with screenshot rail
+- problem map
+- capability system
+- stack matrix
+- architecture flow
+- image proof page
+- screenshot comparison
+- demo timeline
+- conclusion board

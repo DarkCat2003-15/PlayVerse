@@ -1,0 +1,27 @@
+task mode: create
+primary deck-profile: product-platform
+secondary profile gates: engineering-platform
+
+required proof objects:
+- logo supplied in Manuales/LOGO.png
+- screenshots captured from the running Angular frontend
+- architecture map based on frontend/backend/database structure
+- entity relationship image supplied in Manuales/RELACIONES Y ENTIDADES DEL PROYECTO.png
+
+source and asset requirements:
+- system name: PlayVerse
+- slogan: Tu universo de videojuegos en un solo lugar
+- team: Juan Buenaño and Jaime Carriel
+- frontend: Angular 21, Angular Material, TypeScript, RxJS
+- backend: ASP.NET Core .NET 9, JWT, Entity Framework Core, SQL Server, Serilog, Scalar/OpenAPI
+- database: PLAYVERSE_DDL.sql and relationships image
+
+brand authenticity constraints:
+- use only user-provided PlayVerse logo and local project screenshots
+- do not create or approximate external game-store brand marks
+
+QA gates:
+- editable PPTX generated with artifact-tool
+- required exposition sections are all present
+- screenshots render in previews
+- no text overlap in rendered contact sheet

@@ -1,0 +1,14 @@
+<nav class="menu" aria-label="Menu principal">
+  <a mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    Inicio
+  </a>
+  <a mat-button routerLink="/juegos" routerLinkActive="active">Juegos</a>
+  <a mat-button routerLink="/quienes-somos" routerLinkActive="active">Quienes somos</a>
+  <a mat-button routerLink="/contactanos" routerLinkActive="active">Contactanos</a>
+  @if (authService.currentUser()) {
+    <a mat-button routerLink="/perfil" routerLinkActive="active">Perfil</a>
+    @if (canSeeAdmin()) {
+      <a mat-button routerLink="/admin" routerLinkActive="active">Admin</a>
+    }
+  }
+</nav>

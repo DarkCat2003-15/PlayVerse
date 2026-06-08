@@ -1,0 +1,568 @@
+import { injectQuery as __vite__injectQuery } from "/@vite/client";import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/chunk-M2PJRNS7.js");import {
+  ProductCard,
+  artworkForTitle,
+  gameCardToProduct
+} from "/chunk-GR54KC6V.js";
+import {
+  CatalogService
+} from "/chunk-EJWIDUOL.js";
+import {
+  AuthService
+} from "/chunk-EM4DCUSR.js";
+import "/chunk-GGWIV4IL.js";
+
+// src/app/Features/public/pages/home/home.ts
+import { CurrencyPipe, DatePipe } from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_common.js?v=f064764e";
+import { Component, computed, inject, signal } from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_core.js?v=f064764e";
+import { MatButtonModule } from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_material_button.js?v=f064764e";
+import { MatCardModule } from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_material_card.js?v=f064764e";
+import { MatChipsModule } from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_material_chips.js?v=f064764e";
+import { RouterLink } from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_router.js?v=f064764e";
+import * as i0 from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_core.js?v=f064764e";
+import * as i1 from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_cdk_bidi.js?v=f064764e";
+import * as i2 from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_material_button.js?v=f064764e";
+import * as i3 from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_material_card.js?v=f064764e";
+import * as i4 from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_material_chips.js?v=f064764e";
+var _forTrack0 = ($index, $item) => $item.id;
+function Home_Conditional_10_Template(rf, ctx) {
+  if (rf & 1) {
+    i0.\u0275\u0275elementStart(0, "span", 14);
+    i0.\u0275\u0275text(1);
+    i0.\u0275\u0275elementEnd();
+    i0.\u0275\u0275elementStart(2, "a", 15);
+    i0.\u0275\u0275text(3, "Perfil");
+    i0.\u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    i0.\u0275\u0275advance();
+    i0.\u0275\u0275textInterpolate1("Hola, ", ctx.username);
+  }
+}
+function Home_Conditional_11_Template(rf, ctx) {
+  if (rf & 1) {
+    i0.\u0275\u0275elementStart(0, "a", 5);
+    i0.\u0275\u0275text(1, "Iniciar sesion");
+    i0.\u0275\u0275elementEnd();
+  }
+}
+function Home_For_45_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = i0.\u0275\u0275getCurrentView();
+    i0.\u0275\u0275elementStart(0, "app-product-card", 16);
+    i0.\u0275\u0275listener("detailRequested", function Home_For_45_Template_app_product_card_detailRequested_0_listener($event) {
+      i0.\u0275\u0275restoreView(_r1);
+      const ctx_r1 = i0.\u0275\u0275nextContext();
+      return i0.\u0275\u0275resetView(ctx_r1.showDetail($event));
+    });
+    i0.\u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const game_r3 = ctx.$implicit;
+    i0.\u0275\u0275property("product", game_r3);
+  }
+}
+function Home_Conditional_46_Conditional_13_Template(rf, ctx) {
+  if (rf & 1) {
+    i0.\u0275\u0275elementStart(0, "p", 22);
+    i0.\u0275\u0275text(1, "Cargando detalle...");
+    i0.\u0275\u0275elementEnd();
+  }
+}
+function Home_Conditional_46_Conditional_14_Template(rf, ctx) {
+  if (rf & 1) {
+    i0.\u0275\u0275elementStart(0, "p", 22);
+    i0.\u0275\u0275text(1);
+    i0.\u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = i0.\u0275\u0275nextContext(2);
+    i0.\u0275\u0275advance();
+    i0.\u0275\u0275textInterpolate(ctx_r1.detailError());
+  }
+}
+function Home_Conditional_46_Conditional_38_Template(rf, ctx) {
+  if (rf & 1) {
+    i0.\u0275\u0275elementStart(0, "div", 24)(1, "strong");
+    i0.\u0275\u0275text(2);
+    i0.\u0275\u0275elementEnd();
+    i0.\u0275\u0275elementStart(3, "span");
+    i0.\u0275\u0275text(4);
+    i0.\u0275\u0275pipe(5, "date");
+    i0.\u0275\u0275pipe(6, "date");
+    i0.\u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const offer_r5 = ctx;
+    i0.\u0275\u0275advance(2);
+    i0.\u0275\u0275textInterpolate1("", offer_r5.discount, "% de descuento");
+    i0.\u0275\u0275advance(2);
+    i0.\u0275\u0275textInterpolate2("Oferta desde ", i0.\u0275\u0275pipeBind1(5, 3, offer_r5.startDate), " hasta ", i0.\u0275\u0275pipeBind1(6, 5, offer_r5.endDate));
+  }
+}
+function Home_Conditional_46_Conditional_39_Template(rf, ctx) {
+  if (rf & 1) {
+    i0.\u0275\u0275elementStart(0, "div", 25)(1, "strong");
+    i0.\u0275\u0275text(2, "Sin oferta activa");
+    i0.\u0275\u0275elementEnd();
+    i0.\u0275\u0275elementStart(3, "span");
+    i0.\u0275\u0275text(4, "Este juego no tiene descuento registrado actualmente.");
+    i0.\u0275\u0275elementEnd()();
+  }
+}
+function Home_Conditional_46_For_46_Template(rf, ctx) {
+  if (rf & 1) {
+    i0.\u0275\u0275elementStart(0, "mat-chip");
+    i0.\u0275\u0275text(1);
+    i0.\u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const genre_r6 = ctx.$implicit;
+    i0.\u0275\u0275advance();
+    i0.\u0275\u0275textInterpolate(genre_r6);
+  }
+}
+function Home_Conditional_46_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r4 = i0.\u0275\u0275getCurrentView();
+    i0.\u0275\u0275elementStart(0, "div", 17);
+    i0.\u0275\u0275listener("click", function Home_Conditional_46_Template_div_click_0_listener() {
+      i0.\u0275\u0275restoreView(_r4);
+      const ctx_r1 = i0.\u0275\u0275nextContext();
+      return i0.\u0275\u0275resetView(ctx_r1.closeDetail());
+    });
+    i0.\u0275\u0275elementStart(1, "section", 18);
+    i0.\u0275\u0275listener("click", function Home_Conditional_46_Template_section_click_1_listener($event) {
+      return $event.stopPropagation();
+    });
+    i0.\u0275\u0275elementStart(2, "button", 19);
+    i0.\u0275\u0275listener("click", function Home_Conditional_46_Template_button_click_2_listener() {
+      i0.\u0275\u0275restoreView(_r4);
+      const ctx_r1 = i0.\u0275\u0275nextContext();
+      return i0.\u0275\u0275resetView(ctx_r1.closeDetail());
+    });
+    i0.\u0275\u0275text(3, "Cerrar");
+    i0.\u0275\u0275elementEnd();
+    i0.\u0275\u0275element(4, "img", 20);
+    i0.\u0275\u0275elementStart(5, "div", 21)(6, "div")(7, "span", 10);
+    i0.\u0275\u0275text(8, "Detalle del juego");
+    i0.\u0275\u0275elementEnd();
+    i0.\u0275\u0275elementStart(9, "h2");
+    i0.\u0275\u0275text(10);
+    i0.\u0275\u0275elementEnd();
+    i0.\u0275\u0275elementStart(11, "p");
+    i0.\u0275\u0275text(12);
+    i0.\u0275\u0275elementEnd()();
+    i0.\u0275\u0275conditionalCreate(13, Home_Conditional_46_Conditional_13_Template, 2, 0, "p", 22);
+    i0.\u0275\u0275conditionalCreate(14, Home_Conditional_46_Conditional_14_Template, 2, 1, "p", 22);
+    i0.\u0275\u0275elementStart(15, "div", 23)(16, "article")(17, "span");
+    i0.\u0275\u0275text(18, "Creador");
+    i0.\u0275\u0275elementEnd();
+    i0.\u0275\u0275elementStart(19, "strong");
+    i0.\u0275\u0275text(20);
+    i0.\u0275\u0275elementEnd()();
+    i0.\u0275\u0275elementStart(21, "article")(22, "span");
+    i0.\u0275\u0275text(23, "Publisher");
+    i0.\u0275\u0275elementEnd();
+    i0.\u0275\u0275elementStart(24, "strong");
+    i0.\u0275\u0275text(25);
+    i0.\u0275\u0275elementEnd()();
+    i0.\u0275\u0275elementStart(26, "article")(27, "span");
+    i0.\u0275\u0275text(28, "Fecha publicacion");
+    i0.\u0275\u0275elementEnd();
+    i0.\u0275\u0275elementStart(29, "strong");
+    i0.\u0275\u0275text(30);
+    i0.\u0275\u0275pipe(31, "date");
+    i0.\u0275\u0275elementEnd()();
+    i0.\u0275\u0275elementStart(32, "article")(33, "span");
+    i0.\u0275\u0275text(34, "Precio");
+    i0.\u0275\u0275elementEnd();
+    i0.\u0275\u0275elementStart(35, "strong");
+    i0.\u0275\u0275text(36);
+    i0.\u0275\u0275pipe(37, "currency");
+    i0.\u0275\u0275elementEnd()()();
+    i0.\u0275\u0275conditionalCreate(38, Home_Conditional_46_Conditional_38_Template, 7, 7, "div", 24)(39, Home_Conditional_46_Conditional_39_Template, 5, 0, "div", 25);
+    i0.\u0275\u0275elementStart(40, "div", 26)(41, "article")(42, "h3");
+    i0.\u0275\u0275text(43, "Generos");
+    i0.\u0275\u0275elementEnd();
+    i0.\u0275\u0275elementStart(44, "mat-chip-set", 27);
+    i0.\u0275\u0275repeaterCreate(45, Home_Conditional_46_For_46_Template, 2, 1, "mat-chip", null, i0.\u0275\u0275repeaterTrackByIdentity);
+    i0.\u0275\u0275elementEnd()();
+    i0.\u0275\u0275elementStart(47, "article")(48, "h3");
+    i0.\u0275\u0275text(49, "Contenido");
+    i0.\u0275\u0275elementEnd();
+    i0.\u0275\u0275elementStart(50, "p");
+    i0.\u0275\u0275text(51);
+    i0.\u0275\u0275elementEnd()()()()()();
+  }
+  if (rf & 2) {
+    let tmp_4_0;
+    let tmp_5_0;
+    let tmp_8_0;
+    let tmp_9_0;
+    let tmp_10_0;
+    let tmp_11_0;
+    let tmp_12_0;
+    let tmp_13_0;
+    let tmp_14_0;
+    const product_r7 = ctx;
+    const ctx_r1 = i0.\u0275\u0275nextContext();
+    i0.\u0275\u0275advance(4);
+    i0.\u0275\u0275property("src", ctx_r1.detailImage(), i0.\u0275\u0275sanitizeUrl)("alt", product_r7.title);
+    i0.\u0275\u0275advance(6);
+    i0.\u0275\u0275textInterpolate(((tmp_4_0 = ctx_r1.selectedGame()) == null ? null : tmp_4_0.title) || product_r7.title);
+    i0.\u0275\u0275advance(2);
+    i0.\u0275\u0275textInterpolate(((tmp_5_0 = ctx_r1.selectedGame()) == null ? null : tmp_5_0.description) || product_r7.description);
+    i0.\u0275\u0275advance();
+    i0.\u0275\u0275conditional(ctx_r1.detailLoading() ? 13 : -1);
+    i0.\u0275\u0275advance();
+    i0.\u0275\u0275conditional(ctx_r1.detailError() ? 14 : -1);
+    i0.\u0275\u0275advance(6);
+    i0.\u0275\u0275textInterpolate(((tmp_8_0 = ctx_r1.selectedGame()) == null ? null : tmp_8_0.developerName) || "Sin desarrollador");
+    i0.\u0275\u0275advance(5);
+    i0.\u0275\u0275textInterpolate(((tmp_9_0 = ctx_r1.selectedGame()) == null ? null : tmp_9_0.publisherName) || "Sin publisher");
+    i0.\u0275\u0275advance(5);
+    i0.\u0275\u0275textInterpolate(((tmp_10_0 = ctx_r1.selectedGame()) == null ? null : tmp_10_0.releaseDate) ? i0.\u0275\u0275pipeBind1(31, 14, (tmp_10_0 = ctx_r1.selectedGame()) == null ? null : tmp_10_0.releaseDate) : "Sin fecha");
+    i0.\u0275\u0275advance(6);
+    i0.\u0275\u0275textInterpolate1(" ", i0.\u0275\u0275pipeBind4(37, 16, ((tmp_11_0 = ctx_r1.selectedGame()) == null ? null : tmp_11_0.finalPrice) ?? product_r7.price, "USD", "symbol", "1.0-2"), " ");
+    i0.\u0275\u0275advance(2);
+    i0.\u0275\u0275conditional((tmp_12_0 = ctx_r1.activeOffer()) ? 38 : 39, tmp_12_0);
+    i0.\u0275\u0275advance(7);
+    i0.\u0275\u0275repeater(((tmp_13_0 = ctx_r1.selectedGame()) == null ? null : tmp_13_0.genres) || product_r7.tags);
+    i0.\u0275\u0275advance(6);
+    i0.\u0275\u0275textInterpolate3(" ", ((tmp_14_0 = ctx_r1.selectedGame()) == null ? null : tmp_14_0.achievements == null ? null : tmp_14_0.achievements.length) ?? 0, " logros, ", ((tmp_14_0 = ctx_r1.selectedGame()) == null ? null : tmp_14_0.dlcs == null ? null : tmp_14_0.dlcs.length) ?? 0, " DLCs, ", ((tmp_14_0 = ctx_r1.selectedGame()) == null ? null : tmp_14_0.reviewCount) ?? 0, " reviews. ");
+  }
+}
+var Home = class _Home {
+  catalogService = inject(CatalogService);
+  authService = inject(AuthService);
+  fallbackGames = [
+    {
+      id: 1,
+      title: "Elden Ring",
+      description: "Juego de accion y aventura en un mundo abierto.",
+      price: 59.99,
+      category: "RPG",
+      thumbnail: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg",
+      rating: "Muy positivo",
+      tags: ["Accion", "Aventura"]
+    },
+    {
+      id: 2,
+      title: "Stardew Valley",
+      description: "Juego tranquilo de granja y simulacion.",
+      price: 14.99,
+      category: "Indie",
+      thumbnail: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/413150/header.jpg",
+      rating: "Excelente",
+      tags: ["Granja", "Relax"]
+    },
+    {
+      id: 3,
+      title: "Counter-Strike 2",
+      description: "Juego competitivo en equipos.",
+      price: 0,
+      category: "FPS",
+      thumbnail: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/730/header.jpg",
+      rating: "Popular",
+      tags: ["Online", "Competitivo"]
+    }
+  ];
+  featuredGames = signal(this.fallbackGames, ...ngDevMode ? [{ debugName: "featuredGames" }] : (
+    /* istanbul ignore next */
+    []
+  ));
+  selectedProduct = signal(null, ...ngDevMode ? [{ debugName: "selectedProduct" }] : (
+    /* istanbul ignore next */
+    []
+  ));
+  selectedGame = signal(null, ...ngDevMode ? [{ debugName: "selectedGame" }] : (
+    /* istanbul ignore next */
+    []
+  ));
+  detailLoading = signal(false, ...ngDevMode ? [{ debugName: "detailLoading" }] : (
+    /* istanbul ignore next */
+    []
+  ));
+  detailError = signal("", ...ngDevMode ? [{ debugName: "detailError" }] : (
+    /* istanbul ignore next */
+    []
+  ));
+  detailImage = computed(() => {
+    const game = this.selectedGame();
+    const product = this.selectedProduct();
+    return game?.imageUrl?.trim() || product?.thumbnail || artworkForTitle(game?.title ?? product?.title ?? "");
+  }, ...ngDevMode ? [{ debugName: "detailImage" }] : (
+    /* istanbul ignore next */
+    []
+  ));
+  activeOffer = computed(() => {
+    const offers = this.selectedGame()?.offers ?? [];
+    return offers.find((offer) => offer.isActive) ?? offers[0] ?? null;
+  }, ...ngDevMode ? [{ debugName: "activeOffer" }] : (
+    /* istanbul ignore next */
+    []
+  ));
+  ngOnInit() {
+    this.catalogService.getGames().subscribe({
+      next: (games) => {
+        this.featuredGames.set(games.length ? games.slice(0, 3).map(gameCardToProduct) : this.fallbackGames);
+      },
+      error: () => {
+        this.featuredGames.set(this.fallbackGames);
+      }
+    });
+  }
+  showDetail(product) {
+    this.selectedProduct.set(product);
+    this.selectedGame.set(null);
+    this.detailError.set("");
+    if (typeof product.id !== "string") {
+      return;
+    }
+    this.detailLoading.set(true);
+    this.catalogService.getGame(product.id).subscribe({
+      next: (game) => {
+        this.selectedGame.set(game);
+        this.detailLoading.set(false);
+      },
+      error: () => {
+        this.detailError.set("No se pudo cargar el detalle completo desde la API.");
+        this.detailLoading.set(false);
+      }
+    });
+  }
+  closeDetail() {
+    this.selectedProduct.set(null);
+    this.selectedGame.set(null);
+    this.detailError.set("");
+    this.detailLoading.set(false);
+  }
+  static \u0275fac = function Home_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _Home)();
+  };
+  static \u0275cmp = /* @__PURE__ */ i0.\u0275\u0275defineComponent({ type: _Home, selectors: [["app-home"]], decls: 47, vars: 2, consts: [[1, "hero"], [1, "hero-content"], ["src", "playverse-logo.png", "alt", "Logo de PlayVerse", 1, "hero-logo"], [1, "actions"], ["mat-raised-button", "", "color", "accent", "routerLink", "/juegos"], ["mat-button", "", "routerLink", "/login"], [1, "page"], [1, "info-grid"], [1, "number"], [1, "section-heading"], [1, "eyebrow"], [1, "games-grid"], [3, "product"], [1, "detail-backdrop"], [1, "hello-label"], ["mat-button", "", "routerLink", "/perfil"], [3, "detailRequested", "product"], [1, "detail-backdrop", 3, "click"], [1, "detail-modal", 3, "click"], ["mat-button", "", "type", "button", 1, "close-button", 3, "click"], [1, "detail-cover", 3, "src", "alt"], [1, "detail-body"], [1, "api-note"], [1, "detail-stats"], [1, "offer-strip"], [1, "offer-strip", "muted-offer"], [1, "detail-columns"], ["aria-label", "Generos"]], template: function Home_Template(rf, ctx) {
+    if (rf & 1) {
+      i0.\u0275\u0275elementStart(0, "section", 0)(1, "div", 1);
+      i0.\u0275\u0275element(2, "img", 2);
+      i0.\u0275\u0275elementStart(3, "h1");
+      i0.\u0275\u0275text(4, "PlayVerse");
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275elementStart(5, "p");
+      i0.\u0275\u0275text(6, "Tu universo de videojuegos en un solo lugar.");
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275elementStart(7, "div", 3)(8, "a", 4);
+      i0.\u0275\u0275text(9, "Ver juegos");
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275conditionalCreate(10, Home_Conditional_10_Template, 4, 1)(11, Home_Conditional_11_Template, 2, 0, "a", 5);
+      i0.\u0275\u0275elementEnd()()();
+      i0.\u0275\u0275elementStart(12, "section", 6)(13, "div", 7)(14, "mat-card")(15, "mat-card-content")(16, "span", 8);
+      i0.\u0275\u0275text(17, "01");
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275elementStart(18, "h2");
+      i0.\u0275\u0275text(19, "Catalogo");
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275elementStart(20, "p");
+      i0.\u0275\u0275text(21, "Juegos, generos, precios y ofertas para explorar tu proxima aventura.");
+      i0.\u0275\u0275elementEnd()()();
+      i0.\u0275\u0275elementStart(22, "mat-card")(23, "mat-card-content")(24, "span", 8);
+      i0.\u0275\u0275text(25, "02");
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275elementStart(26, "h2");
+      i0.\u0275\u0275text(27, "Equipo");
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275elementStart(28, "p");
+      i0.\u0275\u0275text(29, "Juan Buena\xF1o y Jaime Carriel.");
+      i0.\u0275\u0275elementEnd()()();
+      i0.\u0275\u0275elementStart(30, "mat-card")(31, "mat-card-content")(32, "span", 8);
+      i0.\u0275\u0275text(33, "03");
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275elementStart(34, "h2");
+      i0.\u0275\u0275text(35, "Admin");
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275elementStart(36, "p");
+      i0.\u0275\u0275text(37, "Gestion privada para mantener PlayVerse actualizado.");
+      i0.\u0275\u0275elementEnd()()()();
+      i0.\u0275\u0275elementStart(38, "div", 9)(39, "span", 10);
+      i0.\u0275\u0275text(40, "Destacados");
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275elementStart(41, "h2");
+      i0.\u0275\u0275text(42, "Juegos principales");
+      i0.\u0275\u0275elementEnd()();
+      i0.\u0275\u0275elementStart(43, "div", 11);
+      i0.\u0275\u0275repeaterCreate(44, Home_For_45_Template, 1, 1, "app-product-card", 12, _forTrack0);
+      i0.\u0275\u0275elementEnd()();
+      i0.\u0275\u0275conditionalCreate(46, Home_Conditional_46_Template, 52, 21, "div", 13);
+    }
+    if (rf & 2) {
+      let tmp_0_0;
+      let tmp_2_0;
+      i0.\u0275\u0275advance(10);
+      i0.\u0275\u0275conditional((tmp_0_0 = ctx.authService.currentUser()) ? 10 : 11, tmp_0_0);
+      i0.\u0275\u0275advance(34);
+      i0.\u0275\u0275repeater(ctx.featuredGames());
+      i0.\u0275\u0275advance(2);
+      i0.\u0275\u0275conditional((tmp_2_0 = ctx.selectedProduct()) ? 46 : -1, tmp_2_0);
+    }
+  }, dependencies: [MatButtonModule, i1.Dir, i2.MatButton, i2.MatMiniFabButton, i2.MatIconButton, i2.MatFabButton, MatCardModule, i3.MatCard, i3.MatCardActions, i3.MatCardAvatar, i3.MatCardContent, i3.MatCardFooter, i3.MatCardHeader, i3.MatCardImage, i3.MatCardLgImage, i3.MatCardMdImage, i3.MatCardSmImage, i3.MatCardSubtitle, i3.MatCardTitle, i3.MatCardTitleGroup, i3.MatCardXlImage, MatChipsModule, i4.MatChip, i4.MatChipAvatar, i4.MatChipEdit, i4.MatChipEditInput, i4.MatChipGrid, i4.MatChipInput, i4.MatChipListbox, i4.MatChipOption, i4.MatChipRemove, i4.MatChipRow, i4.MatChipSet, i4.MatChipTrailingIcon, ProductCard, RouterLink, CurrencyPipe, DatePipe], styles: ["\n.hero[_ngcontent-%COMP%] {\n  min-height: 560px;\n  display: flex;\n  align-items: flex-end;\n  padding: 48px max(18px, (100% - 1120px) / 2);\n  color: var(--pv-text);\n  background:\n    radial-gradient(\n      circle at 26% 24%,\n      rgba(84, 248, 121, 0.22),\n      transparent 30%),\n    linear-gradient(\n      90deg,\n      rgba(0, 9, 4, 0.98),\n      rgba(0, 16, 6, 0.72),\n      rgba(0, 9, 4, 0.5)),\n    url(https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg) center/cover;\n}\n.hero-content[_ngcontent-%COMP%] {\n  width: min(680px, 100%);\n}\n.hero-logo[_ngcontent-%COMP%] {\n  width: min(240px, 62vw);\n  aspect-ratio: 16/10;\n  margin-bottom: 18px;\n  border: 1px solid rgba(84, 248, 121, 0.32);\n  border-radius: 8px;\n  object-fit: cover;\n  box-shadow: 0 0 40px rgba(84, 248, 121, 0.26);\n}\n.eyebrow[_ngcontent-%COMP%] {\n  color: var(--pv-green-bright);\n  font-size: 0.82rem;\n  font-weight: 900;\n  letter-spacing: 0;\n  text-transform: uppercase;\n}\nh1[_ngcontent-%COMP%], \nh2[_ngcontent-%COMP%], \np[_ngcontent-%COMP%] {\n  margin: 0;\n}\nh1[_ngcontent-%COMP%] {\n  margin-top: 10px;\n  font-size: 4.6rem;\n  line-height: 0.92;\n  letter-spacing: 0;\n  text-shadow: 0 0 28px rgba(84, 248, 121, 0.34);\n}\n.hero[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  max-width: 560px;\n  margin-top: 16px;\n  color: var(--pv-muted);\n  font-size: 1.12rem;\n  line-height: 1.7;\n}\n.actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  gap: 12px;\n  margin-top: 24px;\n}\n.hello-label[_ngcontent-%COMP%] {\n  color: var(--pv-green-soft);\n  font-weight: 900;\n}\n.actions[_ngcontent-%COMP%]   a[mat-button][_ngcontent-%COMP%] {\n  color: #ffffff;\n}\n.page[_ngcontent-%COMP%] {\n  max-width: 1120px;\n  margin: 0 auto;\n  padding: 28px 16px 44px;\n}\n.info-grid[_ngcontent-%COMP%], \n.games-grid[_ngcontent-%COMP%] {\n  display: grid;\n  gap: 18px;\n}\n.info-grid[_ngcontent-%COMP%] {\n  grid-template-columns: repeat(3, 1fr);\n  margin-bottom: 34px;\n}\nmat-card[_ngcontent-%COMP%] {\n  border: 1px solid var(--pv-border);\n  border-radius: 8px;\n  color: var(--pv-text);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(10, 36, 18, 0.96),\n      rgba(5, 18, 10, 0.98));\n  box-shadow: var(--pv-shadow);\n}\n.number[_ngcontent-%COMP%] {\n  display: inline-grid;\n  width: 44px;\n  height: 44px;\n  place-items: center;\n  border-radius: 8px;\n  color: var(--pv-ink);\n  background: var(--pv-green-bright);\n  font-weight: 900;\n}\n.info-grid[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  margin-top: 14px;\n  color: var(--pv-text);\n}\n.info-grid[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin-top: 8px;\n  color: var(--pv-muted);\n  line-height: 1.6;\n}\n.section-heading[_ngcontent-%COMP%] {\n  margin-bottom: 16px;\n}\n.section-heading[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  margin-top: 6px;\n  color: var(--pv-text);\n  font-size: 2rem;\n  letter-spacing: 0;\n}\n.games-grid[_ngcontent-%COMP%] {\n  grid-template-columns: repeat(3, 1fr);\n}\n.detail-backdrop[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 90;\n  display: grid;\n  place-items: center;\n  padding: 22px;\n  background: rgba(3, 7, 18, 0.78);\n}\n.detail-modal[_ngcontent-%COMP%] {\n  position: relative;\n  overflow: hidden;\n  display: grid;\n  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);\n  width: min(1080px, 100%);\n  max-height: min(720px, 100vh - 36px);\n  border: 1px solid var(--pv-border);\n  border-radius: 8px;\n  color: #eef7fb;\n  background: var(--pv-bg-deep);\n  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);\n}\n.close-button[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  z-index: 2;\n  color: #ffffff;\n  background: rgba(3, 7, 18, 0.66);\n}\n.detail-cover[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  min-height: 420px;\n  object-fit: cover;\n}\n.detail-body[_ngcontent-%COMP%] {\n  overflow-y: auto;\n  display: grid;\n  gap: 18px;\n  align-content: start;\n  padding: 28px;\n}\n.detail-body[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%], \n.detail-body[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  color: #ffffff;\n  letter-spacing: 0;\n}\n.detail-body[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-size: clamp(2rem, 4vw, 3rem);\n  line-height: 1;\n}\n.detail-body[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: #c9d7df;\n  line-height: 1.65;\n}\n.detail-stats[_ngcontent-%COMP%], \n.detail-columns[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n  gap: 12px;\n}\n.detail-stats[_ngcontent-%COMP%]   article[_ngcontent-%COMP%], \n.detail-columns[_ngcontent-%COMP%]   article[_ngcontent-%COMP%], \n.offer-strip[_ngcontent-%COMP%] {\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 8px;\n  padding: 14px;\n  background: rgba(255, 255, 255, 0.06);\n}\n.detail-stats[_ngcontent-%COMP%]   span[_ngcontent-%COMP%], \n.offer-strip[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n  color: #9fb5c6;\n  font-size: 0.86rem;\n  font-weight: 800;\n}\n.detail-stats[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%], \n.offer-strip[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  display: block;\n  margin-top: 5px;\n  color: #ffffff;\n  font-size: 1rem;\n}\n.offer-strip[_ngcontent-%COMP%] {\n  border-color: rgba(84, 248, 121, 0.42);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(24, 200, 79, 0.22),\n      rgba(8, 44, 18, 0.5));\n}\n.muted-offer[_ngcontent-%COMP%] {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(148, 163, 184, 0.09);\n}\n.api-note[_ngcontent-%COMP%] {\n  border-radius: 8px;\n  padding: 10px 12px;\n  color: var(--pv-ink);\n  background: var(--pv-green-soft);\n  font-weight: 800;\n}\n@media (max-width: 800px) {\n  .hero[_ngcontent-%COMP%] {\n    min-height: 460px;\n  }\n  h1[_ngcontent-%COMP%] {\n    font-size: 3rem;\n  }\n  .info-grid[_ngcontent-%COMP%], \n   .games-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .detail-modal[_ngcontent-%COMP%], \n   .detail-stats[_ngcontent-%COMP%], \n   .detail-columns[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .detail-cover[_ngcontent-%COMP%] {\n    min-height: 260px;\n    max-height: 320px;\n  }\n  .detail-body[_ngcontent-%COMP%] {\n    padding: 20px;\n  }\n}\n/*# sourceMappingURL=home.css.map */"] });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && i0.\u0275setClassMetadata(Home, [{
+    type: Component,
+    args: [{ selector: "app-home", standalone: true, imports: [CurrencyPipe, DatePipe, MatButtonModule, MatCardModule, MatChipsModule, ProductCard, RouterLink], template: `<section class="hero">
+  <div class="hero-content">
+    <img class="hero-logo" src="playverse-logo.png" alt="Logo de PlayVerse" />
+    <h1>PlayVerse</h1>
+    <p>Tu universo de videojuegos en un solo lugar.</p>
+
+    <div class="actions">
+      <a mat-raised-button color="accent" routerLink="/juegos">Ver juegos</a>
+      @if (authService.currentUser(); as user) {
+        <span class="hello-label">Hola, {{ user.username }}</span>
+        <a mat-button routerLink="/perfil">Perfil</a>
+      } @else {
+        <a mat-button routerLink="/login">Iniciar sesion</a>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="info-grid">
+    <mat-card>
+      <mat-card-content>
+        <span class="number">01</span>
+        <h2>Catalogo</h2>
+        <p>Juegos, generos, precios y ofertas para explorar tu proxima aventura.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <span class="number">02</span>
+        <h2>Equipo</h2>
+        <p>Juan Buena\xF1o y Jaime Carriel.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <span class="number">03</span>
+        <h2>Admin</h2>
+        <p>Gestion privada para mantener PlayVerse actualizado.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="section-heading">
+    <span class="eyebrow">Destacados</span>
+    <h2>Juegos principales</h2>
+  </div>
+
+  <div class="games-grid">
+    @for (game of featuredGames(); track game.id) {
+      <app-product-card [product]="game" (detailRequested)="showDetail($event)" />
+    }
+  </div>
+</section>
+
+@if (selectedProduct(); as product) {
+  <div class="detail-backdrop" (click)="closeDetail()">
+    <section class="detail-modal" (click)="$event.stopPropagation()">
+      <button mat-button type="button" class="close-button" (click)="closeDetail()">Cerrar</button>
+
+      <img class="detail-cover" [src]="detailImage()" [alt]="product.title" />
+
+      <div class="detail-body">
+        <div>
+          <span class="eyebrow">Detalle del juego</span>
+          <h2>{{ selectedGame()?.title || product.title }}</h2>
+          <p>{{ selectedGame()?.description || product.description }}</p>
+        </div>
+
+        @if (detailLoading()) {
+          <p class="api-note">Cargando detalle...</p>
+        }
+
+        @if (detailError()) {
+          <p class="api-note">{{ detailError() }}</p>
+        }
+
+        <div class="detail-stats">
+          <article>
+            <span>Creador</span>
+            <strong>{{ selectedGame()?.developerName || 'Sin desarrollador' }}</strong>
+          </article>
+          <article>
+            <span>Publisher</span>
+            <strong>{{ selectedGame()?.publisherName || 'Sin publisher' }}</strong>
+          </article>
+          <article>
+            <span>Fecha publicacion</span>
+            <strong>{{ selectedGame()?.releaseDate ? (selectedGame()?.releaseDate | date) : 'Sin fecha' }}</strong>
+          </article>
+          <article>
+            <span>Precio</span>
+            <strong>
+              {{ (selectedGame()?.finalPrice ?? product.price) | currency: 'USD' : 'symbol' : '1.0-2' }}
+            </strong>
+          </article>
+        </div>
+
+        @if (activeOffer(); as offer) {
+          <div class="offer-strip">
+            <strong>{{ offer.discount }}% de descuento</strong>
+            <span>Oferta desde {{ offer.startDate | date }} hasta {{ offer.endDate | date }}</span>
+          </div>
+        } @else {
+          <div class="offer-strip muted-offer">
+            <strong>Sin oferta activa</strong>
+            <span>Este juego no tiene descuento registrado actualmente.</span>
+          </div>
+        }
+
+        <div class="detail-columns">
+          <article>
+            <h3>Generos</h3>
+            <mat-chip-set aria-label="Generos">
+              @for (genre of selectedGame()?.genres || product.tags; track genre) {
+                <mat-chip>{{ genre }}</mat-chip>
+              }
+            </mat-chip-set>
+          </article>
+
+          <article>
+            <h3>Contenido</h3>
+            <p>
+              {{ selectedGame()?.achievements?.length ?? 0 }} logros,
+              {{ selectedGame()?.dlcs?.length ?? 0 }} DLCs,
+              {{ selectedGame()?.reviewCount ?? 0 }} reviews.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </div>
+}
+`, styles: ["/* src/app/Features/public/pages/home/home.scss */\n.hero {\n  min-height: 560px;\n  display: flex;\n  align-items: flex-end;\n  padding: 48px max(18px, (100% - 1120px) / 2);\n  color: var(--pv-text);\n  background:\n    radial-gradient(\n      circle at 26% 24%,\n      rgba(84, 248, 121, 0.22),\n      transparent 30%),\n    linear-gradient(\n      90deg,\n      rgba(0, 9, 4, 0.98),\n      rgba(0, 16, 6, 0.72),\n      rgba(0, 9, 4, 0.5)),\n    url(https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg) center/cover;\n}\n.hero-content {\n  width: min(680px, 100%);\n}\n.hero-logo {\n  width: min(240px, 62vw);\n  aspect-ratio: 16/10;\n  margin-bottom: 18px;\n  border: 1px solid rgba(84, 248, 121, 0.32);\n  border-radius: 8px;\n  object-fit: cover;\n  box-shadow: 0 0 40px rgba(84, 248, 121, 0.26);\n}\n.eyebrow {\n  color: var(--pv-green-bright);\n  font-size: 0.82rem;\n  font-weight: 900;\n  letter-spacing: 0;\n  text-transform: uppercase;\n}\nh1,\nh2,\np {\n  margin: 0;\n}\nh1 {\n  margin-top: 10px;\n  font-size: 4.6rem;\n  line-height: 0.92;\n  letter-spacing: 0;\n  text-shadow: 0 0 28px rgba(84, 248, 121, 0.34);\n}\n.hero p {\n  max-width: 560px;\n  margin-top: 16px;\n  color: var(--pv-muted);\n  font-size: 1.12rem;\n  line-height: 1.7;\n}\n.actions {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  gap: 12px;\n  margin-top: 24px;\n}\n.hello-label {\n  color: var(--pv-green-soft);\n  font-weight: 900;\n}\n.actions a[mat-button] {\n  color: #ffffff;\n}\n.page {\n  max-width: 1120px;\n  margin: 0 auto;\n  padding: 28px 16px 44px;\n}\n.info-grid,\n.games-grid {\n  display: grid;\n  gap: 18px;\n}\n.info-grid {\n  grid-template-columns: repeat(3, 1fr);\n  margin-bottom: 34px;\n}\nmat-card {\n  border: 1px solid var(--pv-border);\n  border-radius: 8px;\n  color: var(--pv-text);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(10, 36, 18, 0.96),\n      rgba(5, 18, 10, 0.98));\n  box-shadow: var(--pv-shadow);\n}\n.number {\n  display: inline-grid;\n  width: 44px;\n  height: 44px;\n  place-items: center;\n  border-radius: 8px;\n  color: var(--pv-ink);\n  background: var(--pv-green-bright);\n  font-weight: 900;\n}\n.info-grid h2 {\n  margin-top: 14px;\n  color: var(--pv-text);\n}\n.info-grid p {\n  margin-top: 8px;\n  color: var(--pv-muted);\n  line-height: 1.6;\n}\n.section-heading {\n  margin-bottom: 16px;\n}\n.section-heading h2 {\n  margin-top: 6px;\n  color: var(--pv-text);\n  font-size: 2rem;\n  letter-spacing: 0;\n}\n.games-grid {\n  grid-template-columns: repeat(3, 1fr);\n}\n.detail-backdrop {\n  position: fixed;\n  inset: 0;\n  z-index: 90;\n  display: grid;\n  place-items: center;\n  padding: 22px;\n  background: rgba(3, 7, 18, 0.78);\n}\n.detail-modal {\n  position: relative;\n  overflow: hidden;\n  display: grid;\n  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);\n  width: min(1080px, 100%);\n  max-height: min(720px, 100vh - 36px);\n  border: 1px solid var(--pv-border);\n  border-radius: 8px;\n  color: #eef7fb;\n  background: var(--pv-bg-deep);\n  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);\n}\n.close-button {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  z-index: 2;\n  color: #ffffff;\n  background: rgba(3, 7, 18, 0.66);\n}\n.detail-cover {\n  width: 100%;\n  height: 100%;\n  min-height: 420px;\n  object-fit: cover;\n}\n.detail-body {\n  overflow-y: auto;\n  display: grid;\n  gap: 18px;\n  align-content: start;\n  padding: 28px;\n}\n.detail-body h2,\n.detail-body h3 {\n  margin: 0;\n  color: #ffffff;\n  letter-spacing: 0;\n}\n.detail-body h2 {\n  font-size: clamp(2rem, 4vw, 3rem);\n  line-height: 1;\n}\n.detail-body p {\n  color: #c9d7df;\n  line-height: 1.65;\n}\n.detail-stats,\n.detail-columns {\n  display: grid;\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n  gap: 12px;\n}\n.detail-stats article,\n.detail-columns article,\n.offer-strip {\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 8px;\n  padding: 14px;\n  background: rgba(255, 255, 255, 0.06);\n}\n.detail-stats span,\n.offer-strip span {\n  display: block;\n  color: #9fb5c6;\n  font-size: 0.86rem;\n  font-weight: 800;\n}\n.detail-stats strong,\n.offer-strip strong {\n  display: block;\n  margin-top: 5px;\n  color: #ffffff;\n  font-size: 1rem;\n}\n.offer-strip {\n  border-color: rgba(84, 248, 121, 0.42);\n  background:\n    linear-gradient(\n      135deg,\n      rgba(24, 200, 79, 0.22),\n      rgba(8, 44, 18, 0.5));\n}\n.muted-offer {\n  border-color: rgba(148, 163, 184, 0.25);\n  background: rgba(148, 163, 184, 0.09);\n}\n.api-note {\n  border-radius: 8px;\n  padding: 10px 12px;\n  color: var(--pv-ink);\n  background: var(--pv-green-soft);\n  font-weight: 800;\n}\n@media (max-width: 800px) {\n  .hero {\n    min-height: 460px;\n  }\n  h1 {\n    font-size: 3rem;\n  }\n  .info-grid,\n  .games-grid {\n    grid-template-columns: 1fr;\n  }\n  .detail-modal,\n  .detail-stats,\n  .detail-columns {\n    grid-template-columns: 1fr;\n  }\n  .detail-cover {\n    min-height: 260px;\n    max-height: 320px;\n  }\n  .detail-body {\n    padding: 20px;\n  }\n}\n/*# sourceMappingURL=home.css.map */\n"] }]
+  }], null, null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && i0.\u0275setClassDebugInfo(Home, { className: "Home", filePath: "src/app/features/public/pages/home/home.ts", lineNumber: 21 });
+})();
+(() => {
+  const id = "src%2Fapp%2Ffeatures%2Fpublic%2Fpages%2Fhome%2Fhome.ts%40Home";
+  function Home_HmrLoad(t) {
+    import(
+      /* @vite-ignore */
+      __vite__injectQuery(i0.\u0275\u0275getReplaceMetadataURL(id, t, import.meta.url), 'import')
+    ).then((m) => m.default && i0.\u0275\u0275replaceMetadata(Home, m.default, [i0, i1, i2, i3, i4], [MatButtonModule, MatCardModule, MatChipsModule, ProductCard, RouterLink, CurrencyPipe, DatePipe, Component], import.meta, id));
+  }
+  (typeof ngDevMode === "undefined" || ngDevMode) && Home_HmrLoad(Date.now());
+  (typeof ngDevMode === "undefined" || ngDevMode) && (import.meta.hot && import.meta.hot.on("angular:component-update", (d) => d.id === id && Home_HmrLoad(d.timestamp)));
+})();
+export {
+  Home
+};
+
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvRmVhdHVyZXMvcHVibGljL3BhZ2VzL2hvbWUvaG9tZS50cyIsInNyYy9hcHAvRmVhdHVyZXMvcHVibGljL3BhZ2VzL2hvbWUvaG9tZS5odG1sIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IEN1cnJlbmN5UGlwZSwgRGF0ZVBpcGUgfSBmcm9tICdAYW5ndWxhci9jb21tb24nO1xuaW1wb3J0IHsgQ29tcG9uZW50LCBPbkluaXQsIGNvbXB1dGVkLCBpbmplY3QsIHNpZ25hbCB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHsgTWF0QnV0dG9uTW9kdWxlIH0gZnJvbSAnQGFuZ3VsYXIvbWF0ZXJpYWwvYnV0dG9uJztcbmltcG9ydCB7IE1hdENhcmRNb2R1bGUgfSBmcm9tICdAYW5ndWxhci9tYXRlcmlhbC9jYXJkJztcbmltcG9ydCB7IE1hdENoaXBzTW9kdWxlIH0gZnJvbSAnQGFuZ3VsYXIvbWF0ZXJpYWwvY2hpcHMnO1xuaW1wb3J0IHsgUm91dGVyTGluayB9IGZyb20gJ0Bhbmd1bGFyL3JvdXRlcic7XG5pbXBvcnQgeyBQcm9kdWN0IH0gZnJvbSAnLi4vLi4vLi4vLi4vQ29yZS9hcGkvbW9kZWxzL3Byb2R1Y3QuaW50ZXJmYWNlJztcbmltcG9ydCB7IENhdGFsb2dTZXJ2aWNlIH0gZnJvbSAnLi4vLi4vLi4vLi4vQ29yZS9hcGkvY2F0YWxvZy5zZXJ2aWNlJztcbmltcG9ydCB7IGFydHdvcmtGb3JUaXRsZSwgZ2FtZUNhcmRUb1Byb2R1Y3QgfSBmcm9tICcuLi8uLi8uLi8uLi9Db3JlL2FwaS9nYW1lLW1hcHBlcic7XG5pbXBvcnQgeyBHYW1lIH0gZnJvbSAnLi4vLi4vLi4vLi4vQ29yZS9hcGkvbW9kZWxzL2NhdGFsb2cuaW50ZXJmYWNlJztcbmltcG9ydCB7IEF1dGhTZXJ2aWNlIH0gZnJvbSAnLi4vLi4vLi4vLi4vQ29yZS9hdXRoL2F1dGguc2VydmljZSc7XG5pbXBvcnQgeyBQcm9kdWN0Q2FyZCB9IGZyb20gJy4uLy4uLy4uLy4uL3NoYXJlZC91aS9wcm9kdWN0LWNhcmQvcHJvZHVjdC1jYXJkJztcblxuQENvbXBvbmVudCh7XG4gIHNlbGVjdG9yOiAnYXBwLWhvbWUnLFxuICBzdGFuZGFsb25lOiB0cnVlLFxuICBpbXBvcnRzOiBbQ3VycmVuY3lQaXBlLCBEYXRlUGlwZSwgTWF0QnV0dG9uTW9kdWxlLCBNYXRDYXJkTW9kdWxlLCBNYXRDaGlwc01vZHVsZSwgUHJvZHVjdENhcmQsIFJvdXRlckxpbmtdLFxuICB0ZW1wbGF0ZVVybDogJy4vaG9tZS5odG1sJyxcbiAgc3R5bGVVcmw6ICcuL2hvbWUuc2NzcycsXG59KVxuZXhwb3J0IGNsYXNzIEhvbWUgaW1wbGVtZW50cyBPbkluaXQge1xuICBwcml2YXRlIHJlYWRvbmx5IGNhdGFsb2dTZXJ2aWNlID0gaW5qZWN0KENhdGFsb2dTZXJ2aWNlKTtcbiAgcmVhZG9ubHkgYXV0aFNlcnZpY2UgPSBpbmplY3QoQXV0aFNlcnZpY2UpO1xuICBwcml2YXRlIHJlYWRvbmx5IGZhbGxiYWNrR2FtZXM6IFByb2R1Y3RbXSA9IFtcbiAgICB7XG4gICAgICBpZDogMSxcbiAgICAgIHRpdGxlOiAnRWxkZW4gUmluZycsXG4gICAgICBkZXNjcmlwdGlvbjogJ0p1ZWdvIGRlIGFjY2lvbiB5IGF2ZW50dXJhIGVuIHVuIG11bmRvIGFiaWVydG8uJyxcbiAgICAgIHByaWNlOiA1OS45OSxcbiAgICAgIGNhdGVnb3J5OiAnUlBHJyxcbiAgICAgIHRodW1ibmFpbDpcbiAgICAgICAgJ2h0dHBzOi8vc2hhcmVkLmNsb3VkZmxhcmUuc3RlYW1zdGF0aWMuY29tL3N0b3JlX2l0ZW1fYXNzZXRzL3N0ZWFtL2FwcHMvMTI0NTYyMC9oZWFkZXIuanBnJyxcbiAgICAgIHJhdGluZzogJ011eSBwb3NpdGl2bycsXG4gICAgICB0YWdzOiBbJ0FjY2lvbicsICdBdmVudHVyYSddLFxuICAgIH0sXG4gICAge1xuICAgICAgaWQ6IDIsXG4gICAgICB0aXRsZTogJ1N0YXJkZXcgVmFsbGV5JyxcbiAgICAgIGRlc2NyaXB0aW9uOiAnSnVlZ28gdHJhbnF1aWxvIGRlIGdyYW5qYSB5IHNpbXVsYWNpb24uJyxcbiAgICAgIHByaWNlOiAxNC45OSxcbiAgICAgIGNhdGVnb3J5OiAnSW5kaWUnLFxuICAgICAgdGh1bWJuYWlsOlxuICAgICAgICAnaHR0cHM6Ly9zaGFyZWQuY2xvdWRmbGFyZS5zdGVhbXN0YXRpYy5jb20vc3RvcmVfaXRlbV9hc3NldHMvc3RlYW0vYXBwcy80MTMxNTAvaGVhZGVyLmpwZycsXG4gICAgICByYXRpbmc6ICdFeGNlbGVudGUnLFxuICAgICAgdGFnczogWydHcmFuamEnLCAnUmVsYXgnXSxcbiAgICB9LFxuICAgIHtcbiAgICAgIGlkOiAzLFxuICAgICAgdGl0bGU6ICdDb3VudGVyLVN0cmlrZSAyJyxcbiAgICAgIGRlc2NyaXB0aW9uOiAnSnVlZ28gY29tcGV0aXRpdm8gZW4gZXF1aXBvcy4nLFxuICAgICAgcHJpY2U6IDAsXG4gICAgICBjYXRlZ29yeTogJ0ZQUycsXG4gICAgICB0aHVtYm5haWw6ICdodHRwczovL3NoYXJlZC5jbG91ZGZsYXJlLnN0ZWFtc3RhdGljLmNvbS9zdG9yZV9pdGVtX2Fzc2V0cy9zdGVhbS9hcHBzLzczMC9oZWFkZXIuanBnJyxcbiAgICAgIHJhdGluZzogJ1BvcHVsYXInLFxuICAgICAgdGFnczogWydPbmxpbmUnLCAnQ29tcGV0aXRpdm8nXSxcbiAgICB9LFxuICBdO1xuXG4gIHJlYWRvbmx5IGZlYXR1cmVkR2FtZXMgPSBzaWduYWw8UHJvZHVjdFtdPih0aGlzLmZhbGxiYWNrR2FtZXMpO1xuICByZWFkb25seSBzZWxlY3RlZFByb2R1Y3QgPSBzaWduYWw8UHJvZHVjdCB8IG51bGw+KG51bGwpO1xuICByZWFkb25seSBzZWxlY3RlZEdhbWUgPSBzaWduYWw8R2FtZSB8IG51bGw+KG51bGwpO1xuICByZWFkb25seSBkZXRhaWxMb2FkaW5nID0gc2lnbmFsKGZhbHNlKTtcbiAgcmVhZG9ubHkgZGV0YWlsRXJyb3IgPSBzaWduYWwoJycpO1xuXG4gIHJlYWRvbmx5IGRldGFpbEltYWdlID0gY29tcHV0ZWQoKCkgPT4ge1xuICAgIGNvbnN0IGdhbWUgPSB0aGlzLnNlbGVjdGVkR2FtZSgpO1xuICAgIGNvbnN0IHByb2R1Y3QgPSB0aGlzLnNlbGVjdGVkUHJvZHVjdCgpO1xuXG4gICAgcmV0dXJuIGdhbWU/LmltYWdlVXJsPy50cmltKCkgfHwgcHJvZHVjdD8udGh1bWJuYWlsIHx8IGFydHdvcmtGb3JUaXRsZShnYW1lPy50aXRsZSA/PyBwcm9kdWN0Py50aXRsZSA/PyAnJyk7XG4gIH0pO1xuXG4gIHJlYWRvbmx5IGFjdGl2ZU9mZmVyID0gY29tcHV0ZWQoKCkgPT4ge1xuICAgIGNvbnN0IG9mZmVycyA9IHRoaXMuc2VsZWN0ZWRHYW1lKCk/Lm9mZmVycyA/PyBbXTtcbiAgICByZXR1cm4gb2ZmZXJzLmZpbmQoKG9mZmVyKSA9PiBvZmZlci5pc0FjdGl2ZSkgPz8gb2ZmZXJzWzBdID8/IG51bGw7XG4gIH0pO1xuXG4gIG5nT25Jbml0KCk6IHZvaWQge1xuICAgIHRoaXMuY2F0YWxvZ1NlcnZpY2UuZ2V0R2FtZXMoKS5zdWJzY3JpYmUoe1xuICAgICAgbmV4dDogKGdhbWVzKSA9PiB7XG4gICAgICAgIHRoaXMuZmVhdHVyZWRHYW1lcy5zZXQoXG4gICAgICAgICAgZ2FtZXMubGVuZ3RoID8gZ2FtZXMuc2xpY2UoMCwgMykubWFwKGdhbWVDYXJkVG9Qcm9kdWN0KSA6IHRoaXMuZmFsbGJhY2tHYW1lcyxcbiAgICAgICAgKTtcbiAgICAgIH0sXG4gICAgICBlcnJvcjogKCkgPT4ge1xuICAgICAgICB0aGlzLmZlYXR1cmVkR2FtZXMuc2V0KHRoaXMuZmFsbGJhY2tHYW1lcyk7XG4gICAgICB9LFxuICAgIH0pO1xuICB9XG5cbiAgc2hvd0RldGFpbChwcm9kdWN0OiBQcm9kdWN0KTogdm9pZCB7XG4gICAgdGhpcy5zZWxlY3RlZFByb2R1Y3Quc2V0KHByb2R1Y3QpO1xuICAgIHRoaXMuc2VsZWN0ZWRHYW1lLnNldChudWxsKTtcbiAgICB0aGlzLmRldGFpbEVycm9yLnNldCgnJyk7XG5cbiAgICBpZiAodHlwZW9mIHByb2R1Y3QuaWQgIT09ICdzdHJpbmcnKSB7XG4gICAgICByZXR1cm47XG4gICAgfVxuXG4gICAgdGhpcy5kZXRhaWxMb2FkaW5nLnNldCh0cnVlKTtcbiAgICB0aGlzLmNhdGFsb2dTZXJ2aWNlLmdldEdhbWUocHJvZHVjdC5pZCkuc3Vic2NyaWJlKHtcbiAgICAgIG5leHQ6IChnYW1lKSA9PiB7XG4gICAgICAgIHRoaXMuc2VsZWN0ZWRHYW1lLnNldChnYW1lKTtcbiAgICAgICAgdGhpcy5kZXRhaWxMb2FkaW5nLnNldChmYWxzZSk7XG4gICAgICB9LFxuICAgICAgZXJyb3I6ICgpID0+IHtcbiAgICAgICAgdGhpcy5kZXRhaWxFcnJvci5zZXQoJ05vIHNlIHB1ZG8gY2FyZ2FyIGVsIGRldGFsbGUgY29tcGxldG8gZGVzZGUgbGEgQVBJLicpO1xuICAgICAgICB0aGlzLmRldGFpbExvYWRpbmcuc2V0KGZhbHNlKTtcbiAgICAgIH0sXG4gICAgfSk7XG4gIH1cblxuICBjbG9zZURldGFpbCgpOiB2b2lkIHtcbiAgICB0aGlzLnNlbGVjdGVkUHJvZHVjdC5zZXQobnVsbCk7XG4gICAgdGhpcy5zZWxlY3RlZEdhbWUuc2V0KG51bGwpO1xuICAgIHRoaXMuZGV0YWlsRXJyb3Iuc2V0KCcnKTtcbiAgICB0aGlzLmRldGFpbExvYWRpbmcuc2V0KGZhbHNlKTtcbiAgfVxufVxuIiwiPHNlY3Rpb24gY2xhc3M9XCJoZXJvXCI+XG4gIDxkaXYgY2xhc3M9XCJoZXJvLWNvbnRlbnRcIj5cbiAgICA8aW1nIGNsYXNzPVwiaGVyby1sb2dvXCIgc3JjPVwicGxheXZlcnNlLWxvZ28ucG5nXCIgYWx0PVwiTG9nbyBkZSBQbGF5VmVyc2VcIiAvPlxuICAgIDxoMT5QbGF5VmVyc2U8L2gxPlxuICAgIDxwPlR1IHVuaXZlcnNvIGRlIHZpZGVvanVlZ29zIGVuIHVuIHNvbG8gbHVnYXIuPC9wPlxuXG4gICAgPGRpdiBjbGFzcz1cImFjdGlvbnNcIj5cbiAgICAgIDxhIG1hdC1yYWlzZWQtYnV0dG9uIGNvbG9yPVwiYWNjZW50XCIgcm91dGVyTGluaz1cIi9qdWVnb3NcIj5WZXIganVlZ29zPC9hPlxuICAgICAgQGlmIChhdXRoU2VydmljZS5jdXJyZW50VXNlcigpOyBhcyB1c2VyKSB7XG4gICAgICAgIDxzcGFuIGNsYXNzPVwiaGVsbG8tbGFiZWxcIj5Ib2xhLCB7eyB1c2VyLnVzZXJuYW1lIH19PC9zcGFuPlxuICAgICAgICA8YSBtYXQtYnV0dG9uIHJvdXRlckxpbms9XCIvcGVyZmlsXCI+UGVyZmlsPC9hPlxuICAgICAgfSBAZWxzZSB7XG4gICAgICAgIDxhIG1hdC1idXR0b24gcm91dGVyTGluaz1cIi9sb2dpblwiPkluaWNpYXIgc2VzaW9uPC9hPlxuICAgICAgfVxuICAgIDwvZGl2PlxuICA8L2Rpdj5cbjwvc2VjdGlvbj5cblxuPHNlY3Rpb24gY2xhc3M9XCJwYWdlXCI+XG4gIDxkaXYgY2xhc3M9XCJpbmZvLWdyaWRcIj5cbiAgICA8bWF0LWNhcmQ+XG4gICAgICA8bWF0LWNhcmQtY29udGVudD5cbiAgICAgICAgPHNwYW4gY2xhc3M9XCJudW1iZXJcIj4wMTwvc3Bhbj5cbiAgICAgICAgPGgyPkNhdGFsb2dvPC9oMj5cbiAgICAgICAgPHA+SnVlZ29zLCBnZW5lcm9zLCBwcmVjaW9zIHkgb2ZlcnRhcyBwYXJhIGV4cGxvcmFyIHR1IHByb3hpbWEgYXZlbnR1cmEuPC9wPlxuICAgICAgPC9tYXQtY2FyZC1jb250ZW50PlxuICAgIDwvbWF0LWNhcmQ+XG5cbiAgICA8bWF0LWNhcmQ+XG4gICAgICA8bWF0LWNhcmQtY29udGVudD5cbiAgICAgICAgPHNwYW4gY2xhc3M9XCJudW1iZXJcIj4wMjwvc3Bhbj5cbiAgICAgICAgPGgyPkVxdWlwbzwvaDI+XG4gICAgICAgIDxwPkp1YW4gQnVlbmHDsW8geSBKYWltZSBDYXJyaWVsLjwvcD5cbiAgICAgIDwvbWF0LWNhcmQtY29udGVudD5cbiAgICA8L21hdC1jYXJkPlxuXG4gICAgPG1hdC1jYXJkPlxuICAgICAgPG1hdC1jYXJkLWNvbnRlbnQ+XG4gICAgICAgIDxzcGFuIGNsYXNzPVwibnVtYmVyXCI+MDM8L3NwYW4+XG4gICAgICAgIDxoMj5BZG1pbjwvaDI+XG4gICAgICAgIDxwPkdlc3Rpb24gcHJpdmFkYSBwYXJhIG1hbnRlbmVyIFBsYXlWZXJzZSBhY3R1YWxpemFkby48L3A+XG4gICAgICA8L21hdC1jYXJkLWNvbnRlbnQ+XG4gICAgPC9tYXQtY2FyZD5cbiAgPC9kaXY+XG5cbiAgPGRpdiBjbGFzcz1cInNlY3Rpb24taGVhZGluZ1wiPlxuICAgIDxzcGFuIGNsYXNzPVwiZXllYnJvd1wiPkRlc3RhY2Fkb3M8L3NwYW4+XG4gICAgPGgyPkp1ZWdvcyBwcmluY2lwYWxlczwvaDI+XG4gIDwvZGl2PlxuXG4gIDxkaXYgY2xhc3M9XCJnYW1lcy1ncmlkXCI+XG4gICAgQGZvciAoZ2FtZSBvZiBmZWF0dXJlZEdhbWVzKCk7IHRyYWNrIGdhbWUuaWQpIHtcbiAgICAgIDxhcHAtcHJvZHVjdC1jYXJkIFtwcm9kdWN0XT1cImdhbWVcIiAoZGV0YWlsUmVxdWVzdGVkKT1cInNob3dEZXRhaWwoJGV2ZW50KVwiIC8+XG4gICAgfVxuICA8L2Rpdj5cbjwvc2VjdGlvbj5cblxuQGlmIChzZWxlY3RlZFByb2R1Y3QoKTsgYXMgcHJvZHVjdCkge1xuICA8ZGl2IGNsYXNzPVwiZGV0YWlsLWJhY2tkcm9wXCIgKGNsaWNrKT1cImNsb3NlRGV0YWlsKClcIj5cbiAgICA8c2VjdGlvbiBjbGFzcz1cImRldGFpbC1tb2RhbFwiIChjbGljayk9XCIkZXZlbnQuc3RvcFByb3BhZ2F0aW9uKClcIj5cbiAgICAgIDxidXR0b24gbWF0LWJ1dHRvbiB0eXBlPVwiYnV0dG9uXCIgY2xhc3M9XCJjbG9zZS1idXR0b25cIiAoY2xpY2spPVwiY2xvc2VEZXRhaWwoKVwiPkNlcnJhcjwvYnV0dG9uPlxuXG4gICAgICA8aW1nIGNsYXNzPVwiZGV0YWlsLWNvdmVyXCIgW3NyY109XCJkZXRhaWxJbWFnZSgpXCIgW2FsdF09XCJwcm9kdWN0LnRpdGxlXCIgLz5cblxuICAgICAgPGRpdiBjbGFzcz1cImRldGFpbC1ib2R5XCI+XG4gICAgICAgIDxkaXY+XG4gICAgICAgICAgPHNwYW4gY2xhc3M9XCJleWVicm93XCI+RGV0YWxsZSBkZWwganVlZ288L3NwYW4+XG4gICAgICAgICAgPGgyPnt7IHNlbGVjdGVkR2FtZSgpPy50aXRsZSB8fCBwcm9kdWN0LnRpdGxlIH19PC9oMj5cbiAgICAgICAgICA8cD57eyBzZWxlY3RlZEdhbWUoKT8uZGVzY3JpcHRpb24gfHwgcHJvZHVjdC5kZXNjcmlwdGlvbiB9fTwvcD5cbiAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgQGlmIChkZXRhaWxMb2FkaW5nKCkpIHtcbiAgICAgICAgICA8cCBjbGFzcz1cImFwaS1ub3RlXCI+Q2FyZ2FuZG8gZGV0YWxsZS4uLjwvcD5cbiAgICAgICAgfVxuXG4gICAgICAgIEBpZiAoZGV0YWlsRXJyb3IoKSkge1xuICAgICAgICAgIDxwIGNsYXNzPVwiYXBpLW5vdGVcIj57eyBkZXRhaWxFcnJvcigpIH19PC9wPlxuICAgICAgICB9XG5cbiAgICAgICAgPGRpdiBjbGFzcz1cImRldGFpbC1zdGF0c1wiPlxuICAgICAgICAgIDxhcnRpY2xlPlxuICAgICAgICAgICAgPHNwYW4+Q3JlYWRvcjwvc3Bhbj5cbiAgICAgICAgICAgIDxzdHJvbmc+e3sgc2VsZWN0ZWRHYW1lKCk/LmRldmVsb3Blck5hbWUgfHwgJ1NpbiBkZXNhcnJvbGxhZG9yJyB9fTwvc3Ryb25nPlxuICAgICAgICAgIDwvYXJ0aWNsZT5cbiAgICAgICAgICA8YXJ0aWNsZT5cbiAgICAgICAgICAgIDxzcGFuPlB1Ymxpc2hlcjwvc3Bhbj5cbiAgICAgICAgICAgIDxzdHJvbmc+e3sgc2VsZWN0ZWRHYW1lKCk/LnB1Ymxpc2hlck5hbWUgfHwgJ1NpbiBwdWJsaXNoZXInIH19PC9zdHJvbmc+XG4gICAgICAgICAgPC9hcnRpY2xlPlxuICAgICAgICAgIDxhcnRpY2xlPlxuICAgICAgICAgICAgPHNwYW4+RmVjaGEgcHVibGljYWNpb248L3NwYW4+XG4gICAgICAgICAgICA8c3Ryb25nPnt7IHNlbGVjdGVkR2FtZSgpPy5yZWxlYXNlRGF0ZSA/IChzZWxlY3RlZEdhbWUoKT8ucmVsZWFzZURhdGUgfCBkYXRlKSA6ICdTaW4gZmVjaGEnIH19PC9zdHJvbmc+XG4gICAgICAgICAgPC9hcnRpY2xlPlxuICAgICAgICAgIDxhcnRpY2xlPlxuICAgICAgICAgICAgPHNwYW4+UHJlY2lvPC9zcGFuPlxuICAgICAgICAgICAgPHN0cm9uZz5cbiAgICAgICAgICAgICAge3sgKHNlbGVjdGVkR2FtZSgpPy5maW5hbFByaWNlID8/IHByb2R1Y3QucHJpY2UpIHwgY3VycmVuY3k6ICdVU0QnIDogJ3N5bWJvbCcgOiAnMS4wLTInIH19XG4gICAgICAgICAgICA8L3N0cm9uZz5cbiAgICAgICAgICA8L2FydGljbGU+XG4gICAgICAgIDwvZGl2PlxuXG4gICAgICAgIEBpZiAoYWN0aXZlT2ZmZXIoKTsgYXMgb2ZmZXIpIHtcbiAgICAgICAgICA8ZGl2IGNsYXNzPVwib2ZmZXItc3RyaXBcIj5cbiAgICAgICAgICAgIDxzdHJvbmc+e3sgb2ZmZXIuZGlzY291bnQgfX0lIGRlIGRlc2N1ZW50bzwvc3Ryb25nPlxuICAgICAgICAgICAgPHNwYW4+T2ZlcnRhIGRlc2RlIHt7IG9mZmVyLnN0YXJ0RGF0ZSB8IGRhdGUgfX0gaGFzdGEge3sgb2ZmZXIuZW5kRGF0ZSB8IGRhdGUgfX08L3NwYW4+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIH0gQGVsc2Uge1xuICAgICAgICAgIDxkaXYgY2xhc3M9XCJvZmZlci1zdHJpcCBtdXRlZC1vZmZlclwiPlxuICAgICAgICAgICAgPHN0cm9uZz5TaW4gb2ZlcnRhIGFjdGl2YTwvc3Ryb25nPlxuICAgICAgICAgICAgPHNwYW4+RXN0ZSBqdWVnbyBubyB0aWVuZSBkZXNjdWVudG8gcmVnaXN0cmFkbyBhY3R1YWxtZW50ZS48L3NwYW4+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIH1cblxuICAgICAgICA8ZGl2IGNsYXNzPVwiZGV0YWlsLWNvbHVtbnNcIj5cbiAgICAgICAgICA8YXJ0aWNsZT5cbiAgICAgICAgICAgIDxoMz5HZW5lcm9zPC9oMz5cbiAgICAgICAgICAgIDxtYXQtY2hpcC1zZXQgYXJpYS1sYWJlbD1cIkdlbmVyb3NcIj5cbiAgICAgICAgICAgICAgQGZvciAoZ2VucmUgb2Ygc2VsZWN0ZWRHYW1lKCk/LmdlbnJlcyB8fCBwcm9kdWN0LnRhZ3M7IHRyYWNrIGdlbnJlKSB7XG4gICAgICAgICAgICAgICAgPG1hdC1jaGlwPnt7IGdlbnJlIH19PC9tYXQtY2hpcD5cbiAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgPC9tYXQtY2hpcC1zZXQ+XG4gICAgICAgICAgPC9hcnRpY2xlPlxuXG4gICAgICAgICAgPGFydGljbGU+XG4gICAgICAgICAgICA8aDM+Q29udGVuaWRvPC9oMz5cbiAgICAgICAgICAgIDxwPlxuICAgICAgICAgICAgICB7eyBzZWxlY3RlZEdhbWUoKT8uYWNoaWV2ZW1lbnRzPy5sZW5ndGggPz8gMCB9fSBsb2dyb3MsXG4gICAgICAgICAgICAgIHt7IHNlbGVjdGVkR2FtZSgpPy5kbGNzPy5sZW5ndGggPz8gMCB9fSBETENzLFxuICAgICAgICAgICAgICB7eyBzZWxlY3RlZEdhbWUoKT8ucmV2aWV3Q291bnQgPz8gMCB9fSByZXZpZXdzLlxuICAgICAgICAgICAgPC9wPlxuICAgICAgICAgIDwvYXJ0aWNsZT5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2Rpdj5cbiAgICA8L3NlY3Rpb24+XG4gIDwvZGl2PlxufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7OztBQUFBLFNBQVMsY0FBYyxnQkFBZ0I7QUFDdkMsU0FBUyxXQUFtQixVQUFVLFFBQVEsY0FBYztBQUM1RCxTQUFTLHVCQUF1QjtBQUNoQyxTQUFTLHFCQUFxQjtBQUM5QixTQUFTLHNCQUFzQjtBQUMvQixTQUFTLGtCQUFrQjs7Ozs7Ozs7O0FDSW5CLElBQUEsNEJBQUEsR0FBQSxRQUFBLEVBQUE7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

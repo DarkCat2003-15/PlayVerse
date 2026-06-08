@@ -1,0 +1,5 @@
+2026/06/03-01:02:44.080 d580 Creating DB C:\Users\Asus\OneDrive\Documentos\BOOTCAMP\PROYECTOFINAL\outputs\manual-20260603-playverse\manuales\assets\edge-admin-profile-2\Default\EdgeCoupons/coupons_data.db since it was missing.
+2026/06/03-01:02:44.114 d580 Reusing MANIFEST C:\Users\Asus\OneDrive\Documentos\BOOTCAMP\PROYECTOFINAL\outputs\manual-20260603-playverse\manuales\assets\edge-admin-profile-2\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/06/03-01:02:44.303 e4c0 Level-0 table #5: started
+2026/06/03-01:02:44.311 e4c0 Level-0 table #5: 682657 bytes OK
+2026/06/03-01:02:44.315 e4c0 Delete type=0 #3

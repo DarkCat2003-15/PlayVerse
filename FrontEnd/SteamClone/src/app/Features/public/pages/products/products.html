@@ -1,0 +1,228 @@
+<section class="catalog-hero">
+  <div>
+    <span class="eyebrow">Tienda PlayVerse</span>
+    <h1>Catalogo de juegos</h1>
+    <p>Explora lanzamientos, ofertas y generos destacados.</p>
+  </div>
+</section>
+
+<section class="page">
+  @if (errorMessage()) {
+    <p class="api-note">{{ errorMessage() }}</p>
+  }
+
+  @if (successMessage()) {
+    <p class="api-note success-note">{{ successMessage() }}</p>
+  }
+
+  <div class="toolbar-row">
+    <mat-button-toggle-group
+      class="filters"
+      [value]="selectedCategory()"
+      (change)="selectCategory($event.value)"
+      aria-label="Filtro por categoria"
+    >
+      @for (category of categories(); track category) {
+        <mat-button-toggle [value]="category">{{ category }}</mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+
+    @if (loading()) {
+      <span class="loading-label">Sincronizando...</span>
+    }
+  </div>
+
+  @if (cart().length) {
+    <section class="cart-panel" aria-label="Carrito de compra">
+      <div>
+        <span class="eyebrow">Carrito</span>
+        <h2>{{ cart().length }} juego(s) listos para comprar</h2>
+      </div>
+
+      <div class="cart-items">
+        @for (item of cart(); track item.id) {
+          <article>
+            <span>{{ item.title }}</span>
+            <strong>{{ item.price | currency: 'USD' : 'symbol' : '1.0-2' }}</strong>
+            <button mat-button color="warn" type="button" (click)="removeFromCart(item.id)">Quitar</button>
+          </article>
+        }
+      </div>
+
+      <div class="checkout-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Metodo de pago</mat-label>
+          <mat-select
+            [value]="selectedPaymentMethod()"
+            (selectionChange)="selectPaymentMethod($event.value)"
+          >
+            <mat-option value="Tarjeta de credito">Tarjeta de credito</mat-option>
+            <mat-option value="PayPal">PayPal</mat-option>
+            <mat-option value="Gift Card PlayVerse">Gift Card PlayVerse</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="cart-total">
+          <span>Total</span>
+          <strong>{{ cartTotal() | currency: 'USD' : 'symbol' : '1.0-2' }}</strong>
+        </div>
+
+        <button mat-raised-button color="accent" type="button" (click)="checkoutCart()" [disabled]="checkoutLoading()">
+          {{ checkoutLoading() ? 'Comprando...' : 'Comprar carrito' }}
+        </button>
+      </div>
+    </section>
+  }
+
+  <div class="products-grid">
+    @for (product of filteredGames(); track product.id) {
+      <app-product-card [product]="product" (detailRequested)="showDetail($event)" />
+    }
+  </div>
+</section>
+
+@if (selectedProduct(); as product) {
+  <div class="detail-backdrop" (click)="closeDetail()">
+    <section class="detail-modal" (click)="$event.stopPropagation()">
+      <button mat-button type="button" class="close-button" (click)="closeDetail()">Cerrar</button>
+
+      <img class="detail-cover" [src]="detailImage()" [alt]="product.title" />
+
+      <div class="detail-body">
+        <div>
+          <span class="eyebrow">Detalle del juego</span>
+          <h2>{{ selectedGame()?.title || product.title }}</h2>
+          <p>{{ selectedGame()?.description || product.description }}</p>
+        </div>
+
+        @if (detailLoading()) {
+          <p class="api-note">Cargando detalle...</p>
+        }
+
+        @if (detailError()) {
+          <p class="api-note">{{ detailError() }}</p>
+        }
+
+        <div class="detail-stats">
+          <article>
+            <span>Creador</span>
+            <strong>{{ selectedGame()?.developerName || 'Sin desarrollador' }}</strong>
+          </article>
+          <article>
+            <span>Publisher</span>
+            <strong>{{ selectedGame()?.publisherName || 'Sin publisher' }}</strong>
+          </article>
+          <article>
+            <span>Fecha publicacion</span>
+            <strong>{{ selectedGame()?.releaseDate ? (selectedGame()?.releaseDate | date) : 'Sin fecha' }}</strong>
+          </article>
+          <article>
+            <span>Precio</span>
+            <strong>
+              {{ (selectedGame()?.finalPrice ?? product.price) | currency: 'USD' : 'symbol' : '1.0-2' }}
+            </strong>
+          </article>
+        </div>
+
+        @if (activeOffer(); as offer) {
+          <div class="offer-strip">
+            <strong>{{ offer.discount }}% de descuento</strong>
+            <span>
+              Oferta desde {{ offer.startDate | date }} hasta {{ offer.endDate | date }}
+            </span>
+          </div>
+        } @else {
+          <div class="offer-strip muted-offer">
+            <strong>Sin oferta activa</strong>
+            <span>Este juego no tiene descuento registrado actualmente.</span>
+          </div>
+        }
+
+        <div class="detail-actions">
+          @if (authService.currentUser()) {
+            @if (canAddToWishlist(product)) {
+              <button
+                mat-icon-button
+                class="wishlist-icon-button"
+                [class.active]="isInWishlist(product)"
+                type="button"
+                (click)="addDetailToWishlist(product)"
+                [disabled]="isInWishlist(product) || wishlistLoading()"
+                [attr.aria-label]="isInWishlist(product) ? 'Juego en Wishlist' : 'Agregar a Wishlist'"
+                [attr.title]="isInWishlist(product) ? 'Juego en Wishlist' : 'Agregar a Wishlist'"
+              >
+                <img class="wishlist-heart-img" src="wishlist-heart.png" alt="" aria-hidden="true" />
+              </button>
+            }
+            <button
+              mat-raised-button
+              color="accent"
+              type="button"
+              (click)="addToCart(product)"
+              [disabled]="isPurchased(product) || isInCart(product)"
+            >
+              {{ isPurchased(product) ? 'Ya adquirido' : isInCart(product) ? 'En carrito' : 'Agregar al carrito' }}
+            </button>
+          } @else {
+            <button mat-raised-button color="accent" type="button" (click)="addToCart(product)">
+              Iniciar sesion para comprar
+            </button>
+          }
+        </div>
+
+        @if (successMessage()) {
+          <p class="api-note success-note detail-message">{{ successMessage() }}</p>
+        }
+
+        @if (errorMessage()) {
+          <p class="api-note detail-message">{{ errorMessage() }}</p>
+        }
+
+        @if (cart().length) {
+          <div class="detail-checkout">
+            <mat-form-field appearance="outline">
+              <mat-label>Metodo de pago</mat-label>
+              <mat-select
+                [value]="selectedPaymentMethod()"
+                (selectionChange)="selectPaymentMethod($event.value)"
+              >
+                <mat-option value="Tarjeta de credito">Tarjeta de credito</mat-option>
+                <mat-option value="PayPal">PayPal</mat-option>
+                <mat-option value="Gift Card PlayVerse">Gift Card PlayVerse</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div>
+              <span>Total carrito</span>
+              <strong>{{ cartTotal() | currency: 'USD' : 'symbol' : '1.0-2' }}</strong>
+            </div>
+
+            <button mat-raised-button color="primary" type="button" (click)="checkoutCart()" [disabled]="checkoutLoading()">
+              {{ checkoutLoading() ? 'Comprando...' : 'Comprar ahora' }}
+            </button>
+          </div>
+        }
+
+        <div class="detail-columns">
+          <article>
+            <h3>Generos</h3>
+            <mat-chip-set aria-label="Generos">
+              @for (genre of selectedGame()?.genres || product.tags; track genre) {
+                <mat-chip>{{ genre }}</mat-chip>
+              }
+            </mat-chip-set>
+          </article>
+
+          <article>
+            <h3>Contenido</h3>
+            <p>
+              {{ selectedGame()?.achievements?.length ?? 0 }} logros,
+              {{ selectedGame()?.dlcs?.length ?? 0 }} DLCs,
+              {{ selectedGame()?.reviewCount ?? 0 }} reviews.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </div>
+}

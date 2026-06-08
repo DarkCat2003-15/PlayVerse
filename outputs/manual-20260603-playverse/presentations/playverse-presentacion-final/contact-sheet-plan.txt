@@ -1,0 +1,18 @@
+1. Cover with logo and screenshot rail.
+2. Problem map for visitor, admin/developer and user needs.
+3. Solution capability map.
+4. Technology stack matrix.
+5. Architecture flow.
+6. Entity relationship proof.
+7. Public screens comparison.
+8. Admin screens comparison.
+9. Exposition demo timeline.
+10. Conclusions and next steps.
+
+The deck includes all required deliverable sections:
+- portada with system name and integrantes
+- problem description
+- technologies used
+- architecture
+- main screen captures
+- team conclusions

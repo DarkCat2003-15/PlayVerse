@@ -1,0 +1,71 @@
+<section class="contact-hero">
+  <div>
+    <span class="eyebrow">Soporte</span>
+    <h1>Contactanos</h1>
+    <p>Canales del equipo y formulario para la demostracion publica.</p>
+  </div>
+</section>
+
+<section class="page">
+  <div class="contact-grid">
+    <mat-card class="contact-card">
+      <mat-card-header>
+        <span mat-card-avatar class="avatar">PV</span>
+        <mat-card-title>Datos de contacto</mat-card-title>
+        <mat-card-subtitle>PlayVerse Studio</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <dl>
+          <div>
+            <dt>Correo</dt>
+            <dd>{{ email }}</dd>
+          </div>
+          <div>
+            <dt>Telefono</dt>
+            <dd>{{ phone }}</dd>
+          </div>
+          <div>
+            <dt>Ciudad</dt>
+            <dd>Guayaquil, Ecuador</dd>
+          </div>
+          <div>
+            <dt>Horario</dt>
+            <dd>Lunes a viernes: 9:00 AM - 6:00 PM</dd>
+          </div>
+        </dl>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="form-card">
+      <mat-card-header>
+        <mat-card-title>Formulario</mat-card-title>
+        <mat-card-subtitle>Envianos tu consulta</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form (submit)="submitContact($event)">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" name="name" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Correo</mat-label>
+            <input matInput type="email" name="email" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Mensaje</mat-label>
+            <textarea matInput rows="4" name="message" required></textarea>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit">Enviar mensaje</button>
+        </form>
+
+        @if (formSent()) {
+          <p class="message">Mensaje enviado para la demostracion.</p>
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

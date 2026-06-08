@@ -1,0 +1,190 @@
+import { injectQuery as __vite__injectQuery } from "/@vite/client";import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/chunk-GR54KC6V.js");// src/app/Core/api/game-mapper.ts
+var knownArtwork = {
+  "counter-strike 2": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/730/header.jpg",
+  "codex arena": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/730/header.jpg",
+  "dota 2": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/570/header.jpg",
+  "elden ring": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg",
+  "hades": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1145360/header.jpg",
+  "stardew valley": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/413150/header.jpg"
+};
+var fallbackArtwork = [
+  "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg",
+  "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg",
+  "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1086940/header.jpg",
+  "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/2050650/header.jpg"
+];
+function artworkForTitle(title) {
+  const normalizedTitle = title.trim().toLowerCase();
+  const known = knownArtwork[normalizedTitle];
+  if (known) {
+    return known;
+  }
+  const hash = [...normalizedTitle].reduce((total, char) => total + char.charCodeAt(0), 0);
+  return fallbackArtwork[hash % fallbackArtwork.length];
+}
+function gameCardToProduct(game) {
+  const tags = game.genres.length ? game.genres.slice(0, 3) : [game.developerName || game.publisherName || "PC"];
+  return {
+    id: game.gameId,
+    title: game.title,
+    description: game.description || "Juego disponible en el catalogo PlayVerse.",
+    price: Number(game.finalPrice ?? game.basePrice ?? 0),
+    category: game.genres[0] ?? "General",
+    thumbnail: game.imageUrl?.trim() || artworkForTitle(game.title),
+    rating: game.hasActiveOffer ? `${game.discountPercentage}% descuento` : "Disponible",
+    tags
+  };
+}
+
+// src/app/shared/ui/product-card/product-card.ts
+import { CurrencyPipe } from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_common.js?v=f064764e";
+import { Component, EventEmitter, Input, Output } from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_core.js?v=f064764e";
+import { MatButtonModule } from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_material_button.js?v=f064764e";
+import { MatCardModule } from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_material_card.js?v=f064764e";
+import { MatChipsModule } from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_material_chips.js?v=f064764e";
+import * as i0 from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_core.js?v=f064764e";
+import * as i1 from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_cdk_bidi.js?v=f064764e";
+import * as i2 from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_material_button.js?v=f064764e";
+import * as i3 from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_material_card.js?v=f064764e";
+import * as i4 from "/@fs/C:/Users/Asus/OneDrive/Documentos/BOOTCAMP/PROYECTOFINAL/FrontEnd/SteamClone/.angular/cache/21.2.12/PlayVerse/vite/deps/@angular_material_chips.js?v=f064764e";
+function ProductCard_Conditional_11_Template(rf, ctx) {
+  if (rf & 1) {
+    i0.\u0275\u0275text(0, " Gratis ");
+  }
+}
+function ProductCard_Conditional_12_Template(rf, ctx) {
+  if (rf & 1) {
+    i0.\u0275\u0275text(0);
+    i0.\u0275\u0275pipe(1, "currency");
+  }
+  if (rf & 2) {
+    const ctx_r0 = i0.\u0275\u0275nextContext();
+    i0.\u0275\u0275textInterpolate1(" ", i0.\u0275\u0275pipeBind4(1, 1, ctx_r0.product.price, "USD", "symbol", "1.0-2"), " ");
+  }
+}
+function ProductCard_For_15_Template(rf, ctx) {
+  if (rf & 1) {
+    i0.\u0275\u0275elementStart(0, "mat-chip");
+    i0.\u0275\u0275text(1);
+    i0.\u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const tag_r2 = ctx.$implicit;
+    i0.\u0275\u0275advance();
+    i0.\u0275\u0275textInterpolate(tag_r2);
+  }
+}
+var ProductCard = class _ProductCard {
+  product;
+  detailRequested = new EventEmitter();
+  showDetail() {
+    this.detailRequested.emit(this.product);
+  }
+  static \u0275fac = function ProductCard_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ProductCard)();
+  };
+  static \u0275cmp = /* @__PURE__ */ i0.\u0275\u0275defineComponent({ type: _ProductCard, selectors: [["app-product-card"]], inputs: { product: "product" }, outputs: { detailRequested: "detailRequested" }, decls: 19, vars: 7, consts: [[1, "game-card"], ["mat-card-image", "", "loading", "lazy", 3, "src", "alt"], [1, "price"], ["aria-label", "Etiquetas del juego"], ["mat-button", "", "color", "primary", "type", "button", 3, "click"]], template: function ProductCard_Template(rf, ctx) {
+    if (rf & 1) {
+      i0.\u0275\u0275elementStart(0, "mat-card", 0);
+      i0.\u0275\u0275element(1, "img", 1);
+      i0.\u0275\u0275elementStart(2, "mat-card-header")(3, "mat-card-title");
+      i0.\u0275\u0275text(4);
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275elementStart(5, "mat-card-subtitle");
+      i0.\u0275\u0275text(6);
+      i0.\u0275\u0275elementEnd()();
+      i0.\u0275\u0275elementStart(7, "mat-card-content")(8, "p");
+      i0.\u0275\u0275text(9);
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275elementStart(10, "p", 2);
+      i0.\u0275\u0275conditionalCreate(11, ProductCard_Conditional_11_Template, 1, 0)(12, ProductCard_Conditional_12_Template, 2, 6);
+      i0.\u0275\u0275elementEnd();
+      i0.\u0275\u0275elementStart(13, "mat-chip-set", 3);
+      i0.\u0275\u0275repeaterCreate(14, ProductCard_For_15_Template, 2, 1, "mat-chip", null, i0.\u0275\u0275repeaterTrackByIdentity);
+      i0.\u0275\u0275elementEnd()();
+      i0.\u0275\u0275elementStart(16, "mat-card-actions")(17, "button", 4);
+      i0.\u0275\u0275listener("click", function ProductCard_Template_button_click_17_listener() {
+        return ctx.showDetail();
+      });
+      i0.\u0275\u0275text(18, "Ver detalle");
+      i0.\u0275\u0275elementEnd()()();
+    }
+    if (rf & 2) {
+      i0.\u0275\u0275advance();
+      i0.\u0275\u0275property("src", ctx.product.thumbnail, i0.\u0275\u0275sanitizeUrl)("alt", ctx.product.title);
+      i0.\u0275\u0275advance(3);
+      i0.\u0275\u0275textInterpolate(ctx.product.title);
+      i0.\u0275\u0275advance(2);
+      i0.\u0275\u0275textInterpolate2("", ctx.product.category, " | ", ctx.product.rating);
+      i0.\u0275\u0275advance(3);
+      i0.\u0275\u0275textInterpolate(ctx.product.description);
+      i0.\u0275\u0275advance(2);
+      i0.\u0275\u0275conditional(ctx.product.price === 0 ? 11 : 12);
+      i0.\u0275\u0275advance(3);
+      i0.\u0275\u0275repeater(ctx.product.tags);
+    }
+  }, dependencies: [MatButtonModule, i1.Dir, i2.MatButton, i2.MatMiniFabButton, i2.MatIconButton, i2.MatFabButton, MatCardModule, i3.MatCard, i3.MatCardActions, i3.MatCardAvatar, i3.MatCardContent, i3.MatCardFooter, i3.MatCardHeader, i3.MatCardImage, i3.MatCardLgImage, i3.MatCardMdImage, i3.MatCardSmImage, i3.MatCardSubtitle, i3.MatCardTitle, i3.MatCardTitleGroup, i3.MatCardXlImage, MatChipsModule, i4.MatChip, i4.MatChipAvatar, i4.MatChipEdit, i4.MatChipEditInput, i4.MatChipGrid, i4.MatChipInput, i4.MatChipListbox, i4.MatChipOption, i4.MatChipRemove, i4.MatChipRow, i4.MatChipSet, i4.MatChipTrailingIcon, CurrencyPipe], styles: ["\n.game-card[_ngcontent-%COMP%] {\n  height: 100%;\n  overflow: hidden;\n  border: 1px solid var(--pv-border);\n  border-radius: 8px;\n  color: var(--pv-text);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(13, 27, 18, 0.98),\n      rgba(4, 14, 8, 0.98));\n  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);\n  transition: transform 160ms ease, box-shadow 160ms ease;\n}\n.game-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-3px);\n  box-shadow: 0 22px 58px rgba(84, 248, 121, 0.18);\n}\nimg[_ngcontent-%COMP%] {\n  height: 160px;\n  object-fit: cover;\n}\nmat-card-header[_ngcontent-%COMP%] {\n  min-height: 82px;\n}\nmat-card-title[_ngcontent-%COMP%] {\n  color: var(--pv-text);\n  font-weight: 900;\n}\nmat-card-subtitle[_ngcontent-%COMP%] {\n  color: var(--pv-muted);\n}\nmat-card-content[_ngcontent-%COMP%] {\n  padding-top: 12px;\n}\np[_ngcontent-%COMP%] {\n  color: var(--pv-muted);\n  line-height: 1.55;\n}\n.price[_ngcontent-%COMP%] {\n  margin: 12px 0;\n  color: var(--pv-green-bright);\n  font-size: 1.12rem;\n  font-weight: 900;\n}\nmat-card-actions[_ngcontent-%COMP%] {\n  padding: 4px 16px 16px;\n}\n/*# sourceMappingURL=product-card.css.map */"] });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && i0.\u0275setClassMetadata(ProductCard, [{
+    type: Component,
+    args: [{ selector: "app-product-card", standalone: true, imports: [CurrencyPipe, MatButtonModule, MatCardModule, MatChipsModule], template: `<mat-card class="game-card">
+  <img mat-card-image [src]="product.thumbnail" [alt]="product.title" loading="lazy" />
+
+  <mat-card-header>
+    <mat-card-title>{{ product.title }}</mat-card-title>
+    <mat-card-subtitle>{{ product.category }} | {{ product.rating }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>{{ product.description }}</p>
+    <p class="price">
+      @if (product.price === 0) {
+        Gratis
+      } @else {
+        {{ product.price | currency: 'USD' : 'symbol' : '1.0-2' }}
+      }
+    </p>
+
+    <mat-chip-set aria-label="Etiquetas del juego">
+      @for (tag of product.tags; track tag) {
+        <mat-chip>{{ tag }}</mat-chip>
+      }
+    </mat-chip-set>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button color="primary" type="button" (click)="showDetail()">Ver detalle</button>
+  </mat-card-actions>
+</mat-card>
+`, styles: ["/* src/app/shared/ui/product-card/product-card.scss */\n.game-card {\n  height: 100%;\n  overflow: hidden;\n  border: 1px solid var(--pv-border);\n  border-radius: 8px;\n  color: var(--pv-text);\n  background:\n    linear-gradient(\n      180deg,\n      rgba(13, 27, 18, 0.98),\n      rgba(4, 14, 8, 0.98));\n  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);\n  transition: transform 160ms ease, box-shadow 160ms ease;\n}\n.game-card:hover {\n  transform: translateY(-3px);\n  box-shadow: 0 22px 58px rgba(84, 248, 121, 0.18);\n}\nimg {\n  height: 160px;\n  object-fit: cover;\n}\nmat-card-header {\n  min-height: 82px;\n}\nmat-card-title {\n  color: var(--pv-text);\n  font-weight: 900;\n}\nmat-card-subtitle {\n  color: var(--pv-muted);\n}\nmat-card-content {\n  padding-top: 12px;\n}\np {\n  color: var(--pv-muted);\n  line-height: 1.55;\n}\n.price {\n  margin: 12px 0;\n  color: var(--pv-green-bright);\n  font-size: 1.12rem;\n  font-weight: 900;\n}\nmat-card-actions {\n  padding: 4px 16px 16px;\n}\n/*# sourceMappingURL=product-card.css.map */\n"] }]
+  }], null, { product: [{
+    type: Input,
+    args: [{ required: true }]
+  }], detailRequested: [{
+    type: Output
+  }] });
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && i0.\u0275setClassDebugInfo(ProductCard, { className: "ProductCard", filePath: "src/app/shared/ui/product-card/product-card.ts", lineNumber: 15 });
+})();
+(() => {
+  const id = "src%2Fapp%2Fshared%2Fui%2Fproduct-card%2Fproduct-card.ts%40ProductCard";
+  function ProductCard_HmrLoad(t) {
+    import(
+      /* @vite-ignore */
+      __vite__injectQuery(i0.\u0275\u0275getReplaceMetadataURL(id, t, import.meta.url), 'import')
+    ).then((m) => m.default && i0.\u0275\u0275replaceMetadata(ProductCard, m.default, [i0, i1, i2, i3, i4], [MatButtonModule, MatCardModule, MatChipsModule, CurrencyPipe, Component, Input, Output], import.meta, id));
+  }
+  (typeof ngDevMode === "undefined" || ngDevMode) && ProductCard_HmrLoad(Date.now());
+  (typeof ngDevMode === "undefined" || ngDevMode) && (import.meta.hot && import.meta.hot.on("angular:component-update", (d) => d.id === id && ProductCard_HmrLoad(d.timestamp)));
+})();
+
+export {
+  artworkForTitle,
+  gameCardToProduct,
+  ProductCard
+};
+
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvQ29yZS9hcGkvZ2FtZS1tYXBwZXIudHMiLCJzcmMvYXBwL3NoYXJlZC91aS9wcm9kdWN0LWNhcmQvcHJvZHVjdC1jYXJkLnRzIiwic3JjL2FwcC9zaGFyZWQvdWkvcHJvZHVjdC1jYXJkL3Byb2R1Y3QtY2FyZC5odG1sIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IEdhbWVDYXJkIH0gZnJvbSAnLi9tb2RlbHMvY2F0YWxvZy5pbnRlcmZhY2UnO1xuaW1wb3J0IHsgUHJvZHVjdCB9IGZyb20gJy4vbW9kZWxzL3Byb2R1Y3QuaW50ZXJmYWNlJztcblxuY29uc3Qga25vd25BcnR3b3JrOiBSZWNvcmQ8c3RyaW5nLCBzdHJpbmc+ID0ge1xuICAnY291bnRlci1zdHJpa2UgMic6XG4gICAgJ2h0dHBzOi8vc2hhcmVkLmNsb3VkZmxhcmUuc3RlYW1zdGF0aWMuY29tL3N0b3JlX2l0ZW1fYXNzZXRzL3N0ZWFtL2FwcHMvNzMwL2hlYWRlci5qcGcnLFxuICAnY29kZXggYXJlbmEnOlxuICAgICdodHRwczovL3NoYXJlZC5jbG91ZGZsYXJlLnN0ZWFtc3RhdGljLmNvbS9zdG9yZV9pdGVtX2Fzc2V0cy9zdGVhbS9hcHBzLzczMC9oZWFkZXIuanBnJyxcbiAgJ2RvdGEgMic6XG4gICAgJ2h0dHBzOi8vc2hhcmVkLmNsb3VkZmxhcmUuc3RlYW1zdGF0aWMuY29tL3N0b3JlX2l0ZW1fYXNzZXRzL3N0ZWFtL2FwcHMvNTcwL2hlYWRlci5qcGcnLFxuICAnZWxkZW4gcmluZyc6XG4gICAgJ2h0dHBzOi8vc2hhcmVkLmNsb3VkZmxhcmUuc3RlYW1zdGF0aWMuY29tL3N0b3JlX2l0ZW1fYXNzZXRzL3N0ZWFtL2FwcHMvMTI0NTYyMC9oZWFkZXIuanBnJyxcbiAgJ2hhZGVzJzpcbiAgICAnaHR0cHM6Ly9zaGFyZWQuY2xvdWRmbGFyZS5zdGVhbXN0YXRpYy5jb20vc3RvcmVfaXRlbV9hc3NldHMvc3RlYW0vYXBwcy8xMTQ1MzYwL2hlYWRlci5qcGcnLFxuICAnc3RhcmRldyB2YWxsZXknOlxuICAgICdodHRwczovL3NoYXJlZC5jbG91ZGZsYXJlLnN0ZWFtc3RhdGljLmNvbS9zdG9yZV9pdGVtX2Fzc2V0cy9zdGVhbS9hcHBzLzQxMzE1MC9oZWFkZXIuanBnJyxcbn07XG5cbmNvbnN0IGZhbGxiYWNrQXJ0d29yayA9IFtcbiAgJ2h0dHBzOi8vc2hhcmVkLmNsb3VkZmxhcmUuc3RlYW1zdGF0aWMuY29tL3N0b3JlX2l0ZW1fYXNzZXRzL3N0ZWFtL2FwcHMvMTE3NDE4MC9oZWFkZXIuanBnJyxcbiAgJ2h0dHBzOi8vc2hhcmVkLmNsb3VkZmxhcmUuc3RlYW1zdGF0aWMuY29tL3N0b3JlX2l0ZW1fYXNzZXRzL3N0ZWFtL2FwcHMvMjkyMDMwL2hlYWRlci5qcGcnLFxuICAnaHR0cHM6Ly9zaGFyZWQuY2xvdWRmbGFyZS5zdGVhbXN0YXRpYy5jb20vc3RvcmVfaXRlbV9hc3NldHMvc3RlYW0vYXBwcy8xMDg2OTQwL2hlYWRlci5qcGcnLFxuICAnaHR0cHM6Ly9zaGFyZWQuY2xvdWRmbGFyZS5zdGVhbXN0YXRpYy5jb20vc3RvcmVfaXRlbV9hc3NldHMvc3RlYW0vYXBwcy8yMDUwNjUwL2hlYWRlci5qcGcnLFxuXTtcblxuZXhwb3J0IGZ1bmN0aW9uIGFydHdvcmtGb3JUaXRsZSh0aXRsZTogc3RyaW5nKTogc3RyaW5nIHtcbiAgY29uc3Qgbm9ybWFsaXplZFRpdGxlID0gdGl0bGUudHJpbSgpLnRvTG93ZXJDYXNlKCk7XG4gIGNvbnN0IGtub3duID0ga25vd25BcnR3b3JrW25vcm1hbGl6ZWRUaXRsZV07XG5cbiAgaWYgKGtub3duKSB7XG4gICAgcmV0dXJuIGtub3duO1xuICB9XG5cbiAgY29uc3QgaGFzaCA9IFsuLi5ub3JtYWxpemVkVGl0bGVdLnJlZHVjZSgodG90YWwsIGNoYXIpID0+IHRvdGFsICsgY2hhci5jaGFyQ29kZUF0KDApLCAwKTtcbiAgcmV0dXJuIGZhbGxiYWNrQXJ0d29ya1toYXNoICUgZmFsbGJhY2tBcnR3b3JrLmxlbmd0aF07XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBnYW1lQ2FyZFRvUHJvZHVjdChnYW1lOiBHYW1lQ2FyZCk6IFByb2R1Y3Qge1xuICBjb25zdCB0YWdzID0gZ2FtZS5nZW5yZXMubGVuZ3RoXG4gICAgPyBnYW1lLmdlbnJlcy5zbGljZSgwLCAzKVxuICAgIDogW2dhbWUuZGV2ZWxvcGVyTmFtZSB8fCBnYW1lLnB1Ymxpc2hlck5hbWUgfHwgJ1BDJ107XG5cbiAgcmV0dXJuIHtcbiAgICBpZDogZ2FtZS5nYW1lSWQsXG4gICAgdGl0bGU6IGdhbWUudGl0bGUsXG4gICAgZGVzY3JpcHRpb246IGdhbWUuZGVzY3JpcHRpb24gfHwgJ0p1ZWdvIGRpc3BvbmlibGUgZW4gZWwgY2F0YWxvZ28gUGxheVZlcnNlLicsXG4gICAgcHJpY2U6IE51bWJlcihnYW1lLmZpbmFsUHJpY2UgPz8gZ2FtZS5iYXNlUHJpY2UgPz8gMCksXG4gICAgY2F0ZWdvcnk6IGdhbWUuZ2VucmVzWzBdID8/ICdHZW5lcmFsJyxcbiAgICB0aHVtYm5haWw6IGdhbWUuaW1hZ2VVcmw/LnRyaW0oKSB8fCBhcnR3b3JrRm9yVGl0bGUoZ2FtZS50aXRsZSksXG4gICAgcmF0aW5nOiBnYW1lLmhhc0FjdGl2ZU9mZmVyID8gYCR7Z2FtZS5kaXNjb3VudFBlcmNlbnRhZ2V9JSBkZXNjdWVudG9gIDogJ0Rpc3BvbmlibGUnLFxuICAgIHRhZ3MsXG4gIH07XG59XG4iLCJpbXBvcnQgeyBDdXJyZW5jeVBpcGUgfSBmcm9tICdAYW5ndWxhci9jb21tb24nO1xuaW1wb3J0IHsgQ29tcG9uZW50LCBFdmVudEVtaXR0ZXIsIElucHV0LCBPdXRwdXQgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcbmltcG9ydCB7IE1hdEJ1dHRvbk1vZHVsZSB9IGZyb20gJ0Bhbmd1bGFyL21hdGVyaWFsL2J1dHRvbic7XG5pbXBvcnQgeyBNYXRDYXJkTW9kdWxlIH0gZnJvbSAnQGFuZ3VsYXIvbWF0ZXJpYWwvY2FyZCc7XG5pbXBvcnQgeyBNYXRDaGlwc01vZHVsZSB9IGZyb20gJ0Bhbmd1bGFyL21hdGVyaWFsL2NoaXBzJztcbmltcG9ydCB7IFByb2R1Y3QgfSBmcm9tICcuLi8uLi8uLi9Db3JlL2FwaS9tb2RlbHMvcHJvZHVjdC5pbnRlcmZhY2UnO1xuXG5AQ29tcG9uZW50KHtcbiAgc2VsZWN0b3I6ICdhcHAtcHJvZHVjdC1jYXJkJyxcbiAgc3RhbmRhbG9uZTogdHJ1ZSxcbiAgaW1wb3J0czogW0N1cnJlbmN5UGlwZSwgTWF0QnV0dG9uTW9kdWxlLCBNYXRDYXJkTW9kdWxlLCBNYXRDaGlwc01vZHVsZV0sXG4gIHRlbXBsYXRlVXJsOiAnLi9wcm9kdWN0LWNhcmQuaHRtbCcsXG4gIHN0eWxlVXJsOiAnLi9wcm9kdWN0LWNhcmQuc2NzcycsXG59KVxuZXhwb3J0IGNsYXNzIFByb2R1Y3RDYXJkIHtcbiAgQElucHV0KHsgcmVxdWlyZWQ6IHRydWUgfSkgcHJvZHVjdCE6IFByb2R1Y3Q7XG4gIEBPdXRwdXQoKSBkZXRhaWxSZXF1ZXN0ZWQgPSBuZXcgRXZlbnRFbWl0dGVyPFByb2R1Y3Q+KCk7XG5cbiAgc2hvd0RldGFpbCgpOiB2b2lkIHtcbiAgICB0aGlzLmRldGFpbFJlcXVlc3RlZC5lbWl0KHRoaXMucHJvZHVjdCk7XG4gIH1cbn1cbiIsIjxtYXQtY2FyZCBjbGFzcz1cImdhbWUtY2FyZFwiPlxuICA8aW1nIG1hdC1jYXJkLWltYWdlIFtzcmNdPVwicHJvZHVjdC50aHVtYm5haWxcIiBbYWx0XT1cInByb2R1Y3QudGl0bGVcIiBsb2FkaW5nPVwibGF6eVwiIC8+XG5cbiAgPG1hdC1jYXJkLWhlYWRlcj5cbiAgICA8bWF0LWNhcmQtdGl0bGU+e3sgcHJvZHVjdC50aXRsZSB9fTwvbWF0LWNhcmQtdGl0bGU+XG4gICAgPG1hdC1jYXJkLXN1YnRpdGxlPnt7IHByb2R1Y3QuY2F0ZWdvcnkgfX0gfCB7eyBwcm9kdWN0LnJhdGluZyB9fTwvbWF0LWNhcmQtc3VidGl0bGU+XG4gIDwvbWF0LWNhcmQtaGVhZGVyPlxuXG4gIDxtYXQtY2FyZC1jb250ZW50PlxuICAgIDxwPnt7IHByb2R1Y3QuZGVzY3JpcHRpb24gfX08L3A+XG4gICAgPHAgY2xhc3M9XCJwcmljZVwiPlxuICAgICAgQGlmIChwcm9kdWN0LnByaWNlID09PSAwKSB7XG4gICAgICAgIEdyYXRpc1xuICAgICAgfSBAZWxzZSB7XG4gICAgICAgIHt7IHByb2R1Y3QucHJpY2UgfCBjdXJyZW5jeTogJ1VTRCcgOiAnc3ltYm9sJyA6ICcxLjAtMicgfX1cbiAgICAgIH1cbiAgICA8L3A+XG5cbiAgICA8bWF0LWNoaXAtc2V0IGFyaWEtbGFiZWw9XCJFdGlxdWV0YXMgZGVsIGp1ZWdvXCI+XG4gICAgICBAZm9yICh0YWcgb2YgcHJvZHVjdC50YWdzOyB0cmFjayB0YWcpIHtcbiAgICAgICAgPG1hdC1jaGlwPnt7IHRhZyB9fTwvbWF0LWNoaXA+XG4gICAgICB9XG4gICAgPC9tYXQtY2hpcC1zZXQ+XG4gIDwvbWF0LWNhcmQtY29udGVudD5cblxuICA8bWF0LWNhcmQtYWN0aW9ucz5cbiAgICA8YnV0dG9uIG1hdC1idXR0b24gY29sb3I9XCJwcmltYXJ5XCIgdHlwZT1cImJ1dHRvblwiIChjbGljayk9XCJzaG93RGV0YWlsKClcIj5WZXIgZGV0YWxsZTwvYnV0dG9uPlxuICA8L21hdC1jYXJkLWFjdGlvbnM+XG48L21hdC1jYXJkPlxuIl0sIm1hcHBpbmdzIjoiO0FBR0EsSUFBTSxlQUF1QztFQUMzQyxvQkFDRTtFQUNGLGVBQ0U7RUFDRixVQUNFO0VBQ0YsY0FDRTtFQUNGLFNBQ0U7RUFDRixrQkFDRTs7QUFHSixJQUFNLGtCQUFrQjtFQUN0QjtFQUNBO0VBQ0E7RUFDQTs7QUFHSSxTQUFVLGdCQUFnQixPQUFhO0FBQzNDLFFBQU0sa0JBQWtCLE1BQU0sS0FBSSxFQUFHLFlBQVc7QUFDaEQsUUFBTSxRQUFRLGFBQWEsZUFBZTtBQUUxQyxNQUFJLE9BQU87QUFDVCxXQUFPO0VBQ1Q7QUFFQSxRQUFNLE9BQU8sQ0FBQyxHQUFHLGVBQWUsRUFBRSxPQUFPLENBQUMsT0FBTyxTQUFTLFFBQVEsS0FBSyxXQUFXLENBQUMsR0FBRyxDQUFDO0FBQ3ZG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

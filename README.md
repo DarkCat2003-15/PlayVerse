@@ -14,7 +14,7 @@ El objetivo principal fue poner en práctica los conocimientos adquiridos durant
 
 ### Frontend
 - Angular Material
-- typescript
+- TypeScript
 - Angular
 
 ### Backend

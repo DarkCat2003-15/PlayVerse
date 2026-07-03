@@ -16,10 +16,14 @@ El objetivo principal fue poner en práctica los conocimientos adquiridos durant
 - Angular Material
 - TypeScript
 - Angular
+- Css
 
 ### Backend
 - C#
-- 
+- Serilog
+- Scalar
+- AspNetCore.OpenApi
+- EntityFrameworkCore
 
 ### Base de Datos
 - SQL Server
@@ -30,6 +34,7 @@ El objetivo principal fue poner en práctica los conocimientos adquiridos durant
 - Visual Studio Code
 - Postman
 - Visual Studios
+- Angular Framework
 
 ---
 
